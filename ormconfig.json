@@ -1,0 +1,17 @@
+{
+  "type": "postgres",
+  "host": "fiipsqlinstance.cip096wxuuna.sa-east-1.rds.amazonaws.com",
+  "port": 5432,
+  "username": "postgres",
+  "password": "Fiip#Db1.",
+  "database": "bar",
+  "entities": [
+    "src/app/models/*.ts"
+  ],
+  "migrations": [
+    "src/database/migrations/*.ts"
+  ],
+  "cli": {
+    "migrationsDir": "src/database/migrations"
+  }
+}

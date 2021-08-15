@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <!-- For IE -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- For Resposive Device -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Fiip – Um novo jeito de pagar</title>
+<script src="./index_files/wp-emoji-release.min.js.download" type="text/javascript" defer=""></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<style id="woocommerce-inline-inline-css" type="text/css">
+.woocommerce form .form-row .required { visibility: visible; }
+</style>
+<link rel="stylesheet" id="wp-block-library-css" href="./index_files/style.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="wc-block-vendors-style-css" href="./index_files/fe22465536e53ab9bdb612d3436ea2ed.css" type="text/css" media="all">
+<link rel="stylesheet" id="wc-block-style-css" href="./index_files/94af02d40b3bdbfe31cea8cd97b487d0.css" type="text/css" media="all">
+<link rel="stylesheet" id="saasland-editor-fonts-css" href="./index_files/css" type="text/css" media="all">
+<link rel="stylesheet" id="font-awesome-5-free-css" href="./index_files/599c2aecd28d696cdcf73e2cbd6e95a5.css" type="text/css" media="all">
+<link rel="stylesheet" id="amazonpolly-css" href="./index_files/671f1c09ec903d20738f7501ed5fa697.css" type="text/css" media="all">
+<link rel="stylesheet" id="rs-plugin-settings-css" href="./index_files/58c3284d727c406014831f84ec92a1da.css" type="text/css" media="all">
+<style id="rs-plugin-settings-inline-css" type="text/css">
+#rs-demo-id {}
+/* 
+ICON SET
+*/
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;  
+  src: url(//fonts.gstatic.com/s/materialicons/v41/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2) format('woff2');
+}
+
+rs-module .material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;  
+  display: inline-block;  
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  vertical-align: top;
+  line-height: inherit;
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+}.tp-opacity { opacity: 0.35 !important; }
+.tp-nopointer { pointer-events: none !important; }</style>
+<link rel="stylesheet" id="sb-main-css-css" href="./index_files/7942508a28f4a619ab7eabb5527cf8f7.css" type="text/css" media="all">
+<link rel="stylesheet" id="sb-google-font-css" href="./index_files/css(1)" type="text/css" media="all">
+<link rel="stylesheet" id="saasland-fonts-css" href="./index_files/css" type="text/css" media="all">
+<link rel="stylesheet" id="bootstrap-css" href="./index_files/bootstrap.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="themify-icon-css" href="./index_files/themify-icons.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="elementor-frontend-legacy-css" href="./index_files/frontend-legacy.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="elementor-frontend-css" href="./index_files/frontend.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="saasland-elementor-css" href="./index_files/elementor-override.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="saasland-animate-css" href="./index_files/399a067a3c86a7fc74b000825a8a9b05.css" type="text/css" media="all">
+<link rel="stylesheet" id="saasland-custom-animations-css" href="./index_files/saasland-animations.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="magnific-popup-css" href="./index_files/magnific-popup.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="eleganticons-css" href="./index_files/style.min(1).css" type="text/css" media="all">
+<link rel="stylesheet" id="saasland-wpd-css" href="./index_files/wpd-style.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="saasland-main-css" href="./index_files/style.min(2).css" type="text/css" media="all">
+<link rel="stylesheet" id="saasland-elements-css" href="./index_files/elements.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="saasland-comments-css" href="./index_files/comments.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="saasland-footer-css" href="./index_files/footer.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="saasland-gutenberg-css" href="./index_files/gutenberg.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="saasland-root-css" href="./index_files/ad445c81ec9f3cf77bae8a56bad2a9d7.css" type="text/css" media="all">
+<link rel="stylesheet" id="saasland-responsive-css" href="./index_files/responsive.min.css" type="text/css" media="all">
+<style id="saasland-responsive-inline-css" type="text/css">
+.blog_breadcrumb_area{height: 600px;}
+            @media (max-width: 991px) {
+                .menu>.nav-item {
+                    border-bottom-color:  !important;
+                }
+            }
+                .single-product .product_details_area,
+                .single section.blog_area_two,
+                .elementor-template-full-width .elementor.elementor-7533,
+                .sec_pad.page_wrapper {
+                    padding-top: px;
+                }
+            .single-post section.blog_area_two,
+            .elementor-template-full-width .elementor.elementor-7533,
+            .sec_pad.page_wrapper {
+                padding-bottom: px;
+            } 
+</style>
+<link rel="stylesheet" id="saasland-responsive2-css" href="./index_files/d46be8b66c30b622530bdebef8721c7b.css" type="text/css" media="all">
+<link rel="stylesheet" id="mCustomScrollbar-css" href="./index_files/jquery.mCustomScrollbar.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="saasland-settings-style-css" href="./index_files/saasland_themes_style.css" type="text/css" media="all">
+<link rel="stylesheet" id="elementor-icons-css" href="./index_files/elementor-icons.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="elementor-post-8019-css" href="./index_files/aa1f85e975d8ff6d0296b38295825ffc.css" type="text/css" media="all">
+<link rel="stylesheet" id="simple-line-icon-css" href="./index_files/53525d85af92b36e6da0358e8e4a36ba.css" type="text/css" media="all">
+<link rel="stylesheet" id="slick-theme-css" href="./index_files/9cd82d293c0c14b67a77f20324d0c2d2.css" type="text/css" media="all">
+<link rel="stylesheet" id="themify-icons-css" href="./index_files/b4f174f0254b1d39d08dc9e1415b974c.css" type="text/css" media="all">
+<link rel="stylesheet" id="saasland-flaticons-css" href="./index_files/d1fc4e39624d77326b8da98cca4b3ab4.css" type="text/css" media="all">
+<link rel="stylesheet" id="font-awesome-5-all-css" href="./index_files/all.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="font-awesome-4-shim-css" href="./index_files/v4-shims.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="elementor-post-7533-css" href="./index_files/ffcd81e2f8fa9bf2f4e9f728300129c3.css" type="text/css" media="all">
+<link rel="stylesheet" id="mdcf7-styles-css" href="./index_files/1f1c1f2b2b44933636857e1a8ca087db.css" type="text/css" media="all">
+<style id="mdcf7-styles-inline-css" type="text/css">
+.wpcf7 .wpcf7-form .input-field label { color: #0a0a0a; } .wpcf7-form input:not([type]), .wpcf7-form input[type=text]:not(.browser-default), .wpcf7-form input[type=password]:not(.browser-default), .wpcf7-form input[type=email]:not(.browser-default), .wpcf7-form input[type=url]:not(.browser-default), .wpcf7-form input[type=time]:not(.browser-default), .wpcf7-form input[type=date]:not(.browser-default), .wpcf7-form input[type=datetime]:not(.browser-default), .wpcf7-form input[type=datetime-local]:not(.browser-default), .wpcf7-form input[type=tel]:not(.browser-default), .wpcf7-form input[type=number]:not(.browser-default), .wpcf7-form input[type=search]:not(.browser-default), .wpcf7-form textarea.materialize-textarea { border-bottom: 1px solid #0a0a0a; } .wpcf7 .wpcf7-form .input-field input[type=text]:focus + label, .wpcf7-form input:not([type]):focus:not([readonly])+label, .wpcf7-form input[type=text]:not(.browser-default):focus:not([readonly])+label, .wpcf7-form input[type=password]:not(.browser-default):focus:not([readonly])+label, .wpcf7-form input[type=email]:not(.browser-default):focus:not([readonly])+label, .wpcf7-form input[type=url]:not(.browser-default):focus:not([readonly])+label, .wpcf7-form input[type=time]:not(.browser-default):focus:not([readonly])+label, .wpcf7-form input[type=date]:not(.browser-default):focus:not([readonly])+label, .wpcf7-form input[type=datetime]:not(.browser-default):focus:not([readonly])+label, .wpcf7-form input[type=datetime-local]:not(.browser-default):focus:not([readonly])+label, .wpcf7-form input[type=tel]:not(.browser-default):focus:not([readonly])+label, .wpcf7-form input[type=number]:not(.browser-default):focus:not([readonly])+label, .wpcf7-form input[type=search]:not(.browser-default):focus:not([readonly])+label, .wpcf7-form textarea.materialize-textarea:focus:not([readonly])+label, .wpcf7-form .dropdown-content li>a, .wpcf7-form .dropdown-content li>span { color: #000000; } .wpcf7-form input:not([type]):focus:not([readonly]), .wpcf7-form input[type=text]:not(.browser-default):focus:not([readonly]), .wpcf7-form input[type=password]:not(.browser-default):focus:not([readonly]), .wpcf7-form input[type=email]:not(.browser-default):focus:not([readonly]), .wpcf7-form input[type=url]:not(.browser-default):focus:not([readonly]), .wpcf7-form input[type=time]:not(.browser-default):focus:not([readonly]), .wpcf7-form input[type=date]:not(.browser-default):focus:not([readonly]), .wpcf7-form input[type=datetime]:not(.browser-default):focus:not([readonly]), .wpcf7-form input[type=datetime-local]:not(.browser-default):focus:not([readonly]), .wpcf7-form input[type=tel]:not(.browser-default):focus:not([readonly]), .wpcf7-form input[type=number]:not(.browser-default):focus:not([readonly]), .wpcf7-form input[type=search]:not(.browser-default):focus:not([readonly]), .wpcf7-form textarea.materialize-textarea:focus:not([readonly]) { border-bottom: 1px solid #6552a3; box-shadow: 0 1px 0 0 #6552a3; } .wpcf7-form .input-field .prefix { color: #000000 } .wpcf7-form .input-field .prefix.active { color: #00BCD4 } .wpcf7-form { background-color: ; } .wpcf7-form input:not([type]), .wpcf7-form input[type=text]:not(.browser-default), .wpcf7-form input[type=password]:not(.browser-default), .wpcf7-form input[type=email]:not(.browser-default), .wpcf7-form input[type=url]:not(.browser-default), .wpcf7-form input[type=time]:not(.browser-default), .wpcf7-form input[type=date]:not(.browser-default), .wpcf7-form input[type=datetime]:not(.browser-default), .wpcf7-form input[type=datetime-local]:not(.browser-default), .wpcf7-form input[type=tel]:not(.browser-default), .wpcf7-form input[type=number]:not(.browser-default), .wpcf7-form input[type=search]:not(.browser-default), .wpcf7-form textarea.materialize-textarea, .wpcf7-form label { color: #000000; } .wpcf7-form .dropdown-content { background-color: #ffffff; } .wpcf7 .wpcf7-form .wpcf7-submit, .wpcf7 .wpcf7-form .btn-large, .wpcf7 .wpcf7-form .btn { background-color: #6552a3 !important; } .wpcf7-form input[type=range]+.thumb { background-color: #6552a3 !important; } .wpcf7-form input[type=range]::-webkit-slider-thumb { background: #6552a3 !important; } .wpcf7-form input[type=range]::-ms-thumb { background: #6552a3 !important; } .wpcf7-form input[type=range]::-moz-range-thumb { background: #6552a3 !important; } .wpcf7-form .spinner-layer { border-color: #ffffff; } .wpcf7-form [type=radio]:checked+label:after, .wpcf7-form [type=radio].with-gap:checked+label:before, .wpcf7-form [type=radio].with-gap:checked+label:after { border: 2px solid #00BCD4; } .wpcf7-form [type=radio]:checked+label:after, .wpcf7-form [type=radio].with-gap:checked+label:after, .wpcf7-form .switch label input[type=checkbox]:checked+.lever:after { background-color: #00BCD4; } .wpcf7-form [type=checkbox]:checked+label:before { border-right: 2px solid #00BCD4; border-bottom: 2px solid #00BCD4; } .wpcf7 .wpcf7-form [type=checkbox].filled-in:checked+label:after { border: 2px solid #00BCD4; background-color: #00BCD4; } .wpcf7 .wpcf7-form .switch label input[type=checkbox]:checked+.lever { background-color: #e0f7fa; } .wpcf7-form .picker__date-display, .wpcf7-form .picker__date-display, .wpcf7-form .clockpicker-canvas line, .wpcf7-form .clockpicker-canvas circle, .wpcf7-form .picker__day--selected, .wpcf7-form .picker__day--selected:hover, .wpcf7-form .picker--focused .picker__day--selected { background-color: #00BCD4; fill: #00BCD4; stroke: #00BCD4; } .wpcf7-form .picker__close, .wpcf7-form .picker__today, .wpcf7-form .picker__day.picker__day--today { color: #00BCD4; } .wpcf7-form { font-family: 'Roboto', sans-serif !important;}
+</style>
+<link rel="stylesheet" id="mdcf7-google-fonts-css" href="./index_files/42bb7df90965cd09c421928f36c97377.css" type="text/css" media="all">
+<link rel="stylesheet" id="mdcf7-google-fonts2-css" href="./index_files/38f77c05eefd9734eaef619d246294ec.css" type="text/css" media="all">
+<link rel="stylesheet" id="google-fonts-1-css" href="./index_files/css(2)" type="text/css" media="all">
+<link rel="stylesheet" id="elementor-icons-shared-0-css" href="./index_files/fontawesome.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="elementor-icons-fa-brands-css" href="./index_files/brands.min.css" type="text/css" media="all">
+<script type="text/javascript" src="./index_files/jquery.min.js.download" id="jquery-core-js"></script>
+<script type="text/javascript" src="./index_files/jquery-migrate.min.js.download" id="jquery-migrate-js"></script>
+<script type="text/javascript" src="./index_files/c1402a2ce23108520e049043021766e5.js.download" id="amazonpolly-js"></script>
+<script type="text/javascript" src="./index_files/rbtools.min.js.download" id="tp-tools-js"></script>
+<script type="text/javascript" src="./index_files/rs6.min.js.download" id="revmin-js"></script>
+<script type="text/javascript" src="./index_files/e8ceaf6bd975ecc67c23c2c08b8deeda.js.download" id="sb-main-js-js"></script>
+<script type="text/javascript" id="sb-main-js-js-after">
+
+</script>
+<script type="text/javascript" src="./index_files/js(1)" id="google_gtagjs-js" async=""></script>
+<script type="text/javascript" id="google_gtagjs-js-after">
+window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}
+gtag("js", new Date());
+gtag("set", "developer_id.dZTNiMT", true);
+gtag("config", "UA-140393968-2", {"anonymize_ip":true,"optimize_id":"GTM-PSF9GFQ"});
+</script>
+<script type="text/javascript" src="./index_files/v4-shims.min.js.download" id="font-awesome-4-shim-js"></script>
+<meta name="generator" content="WordPress 5.6.2">
+<meta name="generator" content="WooCommerce 5.0.0">
+<meta name="framework" content="Redux 4.1.24"><!-- start Simple Custom CSS and JS -->
+<script type="text/javascript">
+/* Default comment here */ 
+
+function vqTrackId(){return '10411a54-88dc-41e2-a1b6-a2b4e8241bf6';} (function(d, e) { var el = d.createElement(e); el.sa = function(an, av){this.setAttribute(an, av); return this;}; el.sa('id', 'vq_tracking').sa('src', '//t.visitorqueue.com/p/tracking.min.js?id='+vqTrackId()).sa('async', 1).sa('data-id', vqTrackId()); d.getElementsByTagName(e)[0].parentNode.appendChild(el); })(document, 'script');</script><script id="vq_tracking" src="./index_files/tracking.min.js.download" async="1" data-id="10411a54-88dc-41e2-a1b6-a2b4e8241bf6"></script>
+<!-- end Simple Custom CSS and JS -->
+<!-- start Simple Custom CSS and JS -->
+<style type="text/css">
+/* Add your CSS code here.
+
+For example:
+.example {
+    color: red;
+}
+
+For brushing up on your CSS knowledge, check out http://www.w3schools.com/css/css_syntax.asp
+
+End of comment */ 
+
+@media (max-width: 768px) {
+    .footer_area_four .footer_top {
+        padding-top: 80px !important;
+    }
+    .footer-widget {
+        padding-top: 25px !important;
+      	width: unset !important;
+    }
+    .new_footer_top {
+        padding-top: 50px;
+    }
+    #nav_menu-2 {
+    	display: none;
+    }
+  	.estamos_aqui {
+  		padding-top: 0px !important;
+	}
+}
+
+#hero_shape2_normal path {
+  fill: #FFCE47 !important;
+}
+
+.sec_pad {
+  padding-top: unset;
+}
+
+.faq_area .col-lg-4, .faq_area .f_p {
+  display: none;
+}
+
+.faq_area .col-lg-8 {
+  max-width: unset;
+  flex: unset;
+}
+
+.navbar_fixed {
+  box-shadow: none !important;
+  background-color: '#fff'
+}
+
+.navbar {
+	background-color: '#000'
+}
+
+.n_banner_btn {
+  border-radius: 30px !important;
+}
+
+.wpcf7-form-control.wpcf7-submit.btn_three {
+    border-radius: 30px !important;
+
+}
+
+.new_footer_top .footer_bg .footer_bg_one {
+  animation: myfirst 12s linear infinite !important;
+  width: 95px !important;
+  height: 142px !important;
+}
+
+.new_footer_top .footer_bg .footer_bg_two {
+  animation: myfirst 19s linear infinite !important;
+  width: 102px !important;
+  height: 151px !important;
+}
+
+.learn-btn-two {
+  background-color: #44307C !important;
+}
+
+.f_widget {
+margin-bottom: 0px !important;
+}
+
+#social_links-2 {
+text-align: right;
+}
+
+.saas_signup_form .input-group .form-control {
+  border-bottom: 1px solid #aaa7a1 !important;
+}
+
+.saas_signup_form input::placeholder {
+  color: #aaa7a1 !important;
+}
+
+.saas_banner_btn {
+border-radius: 50px;
+}
+
+.testimonial_slider_four * {
+  color: black !important;
+}
+
+.testimonial_slider_four .item p {
+  font-size: 15px;
+  line-height: 24px;
+}
+
+.wpcf7 .wpcf7-form .wpcf7-submit {
+border-radius: 50px;
+height: 50px;
+width: 150px;
+text-transform: unset;
+font-weight: 400;
+}
+
+.wpcf7 .wpcf7-form input::placeholder {
+  color: black !important;
+}
+
+#contact-form .wpcf7 .wpcf7-form input::placeholder {
+  color: white !important;
+}
+
+header.header_area.header_stick {
+  position: absolute !important;
+}
+
+.header_area {
+	
+}
+
+.wpcf7-form {
+  padding: 0px !important;
+}
+
+#contact-description .hosting_service_item {
+  padding: 20px !important;
+}
+
+#contact-description .col-lg-3.col-sm-6 {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.hosting_service_item {
+  padding: 35px 35px 35px 35px;
+  border-radius: 0px;
+}
+
+.hosting_service_item:hover {
+  border-color: #7A55CB;
+}
+
+.compare {
+      z-index: -200;
+}
+
+.menu-new-menu-container {
+   padding-top: 20px;
+}
+
+#signup-form .wpcf7-form-control.wpcf7-submit {
+  background-color: black !important;
+}
+
+#signup-form p {
+  text-align: center !important;
+}
+
+#signup-form p .preloader-wrapper {
+  position: absolute !important;
+}
+
+#signup-form .wpcf7-response-output {
+  text-align: center;
+  font-family: Poppins, sans-serif;
+  color: #ffe9a9;
+  font-size: 18px;
+}
+
+#signup-form .wpcf7-form input[type=text], #signup-form .wpcf7-form input[type=email], #signup-form .wpcf7-form input[type=tel] {
+  border-bottom: 1px solid #ffffff;
+  color: white;
+}
+
+#signup-form .wpcf7-form input::placeholder {
+  color: white !important;
+}
+
+#signup-form .wpcf7-submit {
+  margin-right: 0px !important;
+  width: 178px;
+  height: 50px;
+  font-size: 18px;
+  font-family: Poppins, sans-serif;
+}
+
+.new_footer_top .f_widget.about-widget ul li a {
+  font-weight: 500;
+}
+
+.elementor-size-md .elementor-button-icon i {
+  font-size: 30px !important;
+}
+
+#whatsapp-button .elementor-button-text, #whatsapp-button-top .elementor-button-text, #whatsapp-button-signup-top .elementor-button-text, #whatsapp-button-signup-mid .elementor-button-text, #whatsapp-button-signup-bottom .elementor-button-text {
+  padding-top: 6px;
+}
+</style>
+<!-- end Simple Custom CSS and JS -->
+<meta name="generator" content="Site Kit by Google 1.27.0">	<noscript><style>.woocommerce-product-gallery{ opacity: 1 !important; }</style></noscript>
+	<script async="" src="./index_files/f.txt"></script><script>(adsbygoogle = window.adsbygoogle || []).push({"google_ad_client":"ca-pub-2730771624193030","enable_page_level_ads":true,"tag_partner":"site_kit"});</script><meta name="generator" content="Powered by Slider Revolution 6.2.23 - responsive, Mobile-Friendly Slider Plugin for WordPress with comfortable drag and drop interface.">
+<script type="text/javascript">function setREVStartSize(e){
+			//window.requestAnimationFrame(function() {				 
+				window.RSIW = window.RSIW===undefined ? window.innerWidth : window.RSIW;	
+				window.RSIH = window.RSIH===undefined ? window.innerHeight : window.RSIH;	
+				try {								
+					var pw = document.getElementById(e.c).parentNode.offsetWidth,
+						newh;
+					pw = pw===0 || isNaN(pw) ? window.RSIW : pw;
+					e.tabw = e.tabw===undefined ? 0 : parseInt(e.tabw);
+					e.thumbw = e.thumbw===undefined ? 0 : parseInt(e.thumbw);
+					e.tabh = e.tabh===undefined ? 0 : parseInt(e.tabh);
+					e.thumbh = e.thumbh===undefined ? 0 : parseInt(e.thumbh);
+					e.tabhide = e.tabhide===undefined ? 0 : parseInt(e.tabhide);
+					e.thumbhide = e.thumbhide===undefined ? 0 : parseInt(e.thumbhide);
+					e.mh = e.mh===undefined || e.mh=="" || e.mh==="auto" ? 0 : parseInt(e.mh,0);		
+					if(e.layout==="fullscreen" || e.l==="fullscreen") 						
+						newh = Math.max(e.mh,window.RSIH);					
+					else{					
+						e.gw = Array.isArray(e.gw) ? e.gw : [e.gw];
+						for (var i in e.rl) if (e.gw[i]===undefined || e.gw[i]===0) e.gw[i] = e.gw[i-1];					
+						e.gh = e.el===undefined || e.el==="" || (Array.isArray(e.el) && e.el.length==0)? e.gh : e.el;
+						e.gh = Array.isArray(e.gh) ? e.gh : [e.gh];
+						for (var i in e.rl) if (e.gh[i]===undefined || e.gh[i]===0) e.gh[i] = e.gh[i-1];
+											
+						var nl = new Array(e.rl.length),
+							ix = 0,						
+							sl;					
+						e.tabw = e.tabhide>=pw ? 0 : e.tabw;
+						e.thumbw = e.thumbhide>=pw ? 0 : e.thumbw;
+						e.tabh = e.tabhide>=pw ? 0 : e.tabh;
+						e.thumbh = e.thumbhide>=pw ? 0 : e.thumbh;					
+						for (var i in e.rl) nl[i] = e.rl[i]<window.RSIW ? 0 : e.rl[i];
+						sl = nl[0];									
+						for (var i in nl) if (sl>nl[i] && nl[i]>0) { sl = nl[i]; ix=i;}															
+						var m = pw>(e.gw[ix]+e.tabw+e.thumbw) ? 1 : (pw-(e.tabw+e.thumbw)) / (e.gw[ix]);					
+						newh =  (e.gh[ix] * m) + (e.tabh + e.thumbh);
+					}				
+					if(window.rs_init_css===undefined) window.rs_init_css = document.head.appendChild(document.createElement("style"));					
+					document.getElementById(e.c).height = newh+"px";
+					window.rs_init_css.innerHTML += "#"+e.c+"_wrapper { height: "+newh+"px }";				
+				} catch(e){
+					console.log("Failure at Presize of Slider:" + e)
+				}					   
+			//});
+		  };</script>
+<style id="saasland_opt-dynamic-css" title="dynamic-css" class="redux-options-output">.ctn-preloader .animation-preloader .txt-loading, .ctn-preloader .animation-preloader .txt-loading .letters-loading:before{font-display:swap;}.ctn-preloader p{font-display:swap;}.header_area.navbar_fixed{background:transparent;}.header_area .navbar .btn_get{color:#5e2ced;}.header_area .navbar .btn_get{border-color:#ffffff;}.header_area .navbar .btn_get{background:#ffffff;}.header_area .navbar .btn_get:hover{color:#ffffff;}.header_area .navbar .btn_get:hover{border-color:#5e2ced;}.header_area .navbar .btn_get:hover{background:#5e2ced;}.navbar_fixed .header_area .navbar .btn_get:hover{border-color:#5e2ced;}.navbar_fixed.header_area .navbar .btn_get{border-color:#5e2ced;}.navbar_fixed.header_area .navbar .btn_get{color:#5e2ced;}.header_area.navbar_fixed .navbar .btn_get.btn-meta:hover{color:#ffffff;}.breadcrumb_content h1, .breadcrumb_content_two h1{font-display:swap;}.breadcrumb_content p{font-display:swap;}.new_footer_top{padding-top:120px;padding-right:0px;padding-bottom:270px;padding-left:0px;}.footer-widget .widget_title{font-display:swap;}.header_area .navbar .navbar-nav .menu-item a,
+                                .menu > .nav-item.submenu .dropdown-menu .nav-item .nav-link{font-display:swap;}.menu > .nav-item.submenu.mega_menu.mega_menu_two .mega_menu_inner .dropdown-menu .nav-item .item .text{font-display:swap;}.menu > .nav-item > .nav-link:before{background:transparent;}.header_area .navbar .navbar-nav .menu-item{margin-top:0px;margin-right:40px;margin-bottom:0px;margin-left:0px;}header.navbar_fixed .menu > .nav-item > .nav-link, header.header_area.navbar_fixed .navbar .navbar-nav .menu-item a, 
+                               .header_area.navbar_fixed .menu_center .menu > .nav-item > .nav-link, header.navbar_fixed .navbar .search_cart .search a.nav-link i{color:#ffffff;}header.navbar_fixed .navbar .search_cart .search a.nav-link:before{background:#ffffff;}
+                    .header_area .navbar_fixed .navbar .navbar-nav .menu-item a:hover, 
+                    header.header_area.navbar_fixed .navbar .navbar-nav .menu-item.active a,
+                    .header_area .navbar_fixed .menu > .nav-item.active .nav-link,
+                    .header_area.navbar_fixed .menu_center .menu > .nav-item:hover > .nav-link,
+                    .menu_center .menu > .nav-item.submenu .dropdown-menu .nav-item:hover > .nav-link span.arrow_carrot-right,
+                    .menu_center .menu > .nav-item.submenu .dropdown-menu .nav-item.active > .nav-link, 
+                    .menu_center .menu > .nav-item.submenu .dropdown-menu .nav-item:hover > .nav-link,
+                    .header_area.navbar_fixed .menu_center .menu > .nav-item.active > .nav-link
+                {color:#ffffff;}.navbar .offcanfas_menu > .nav-item .nav-link, .navbar .offcanfas_menu > .nav-item.submenu .dropdown-menu > .nav-item > .nav-link{font-display:swap;}.navbar .offcanfas_menu > .nav-item:not(:last-child){}a, .blog_list_item .blog_content a, .blog_list_item .blog_content p a, .footer_bottom a{color:#8224e3;}a:active, .blog_list_item .blog_content a:active, .blog_list_item .blog_content p a:active, .footer_bottom a:active{color:#545454;}body, .f_p, .p_service_item p, .blog_list_item_two .blog_content p{font-display:swap;}h1, h1.f_p, .breadcrumb_content h1{font-display:swap;}h2, h2.f_p{font-display:swap;}h3, h3.f_p, .job_details_area h3{font-display:swap;}h4, h4.f_p{font-display:swap;}h5, h5.f_p{font-display:swap;}h6, h6.f_p, .job_info .info_item h6{font-display:swap;}.blog .header_area .navbar .navbar-nav .menu-item a{color:transparent;}.breadcrumb_area_two{background:transparent;}.blog .breadcrumb_content_two h1{font-display:swap;}.blog_breadcrumb_area .breadcrumb_content_two h5, .blog_breadcrumb_area .breadcrumb_content_two h5 a{font-display:swap;}.blog_breadcrumb_area .breadcrumb_content_two h1{font-display:swap;}.blog_breadcrumb_area .breadcrumb_content_two ol li, .blog_breadcrumb_area .breadcrumb_content_two ol li a{font-display:swap;}</style>    <style>#home_wrapper { height: 959px }#rev_slider_4_2_wrapper { height: 441.70000000000005px }</style></head>
+
+    <body class="home page-template page-template-elementor_header_footer page page-id-7533 wp-embed-responsive theme-saasland woocommerce-js not_logged_in saasland-3.3.2 elementor-default elementor-template-full-width elementor-kit-8019 elementor-page elementor-page-7533 e--ua-blink e--ua-chrome e--ua-webkit" data-spy="scroll" data-target=".navbar" data-offset="70" data-elementor-device-mode="desktop">
+    
+    <div class="body_wrapper ">
+        
+		<header class="header_area header_stick no_bg" style="background-color: rgb(122, 85, 203);">
+    
+<nav class="navbar navbar-expand-lg menu_one menu_right">
+        <div class="container">        <a class="navbar-brand sticky_logo ">
+                            <img class="main_logo_img" src="./index_files/logo2-white-1.png" alt="Fiip">
+                <img class="sticky_logo_img" src="./index_files/logo2.png" alt="Fiip">
+                        </a>
+            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="menu_toggle">
+            <span class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </span>
+            <span class="hamburger-cross">
+                <span></span>
+                <span></span>
+            </span>
+        </span>
+    </button>
+
+<div class="collapse navbar-collapse " id="navbarSupportedContent">
+    <ul id="menu-main-menu" class="navbar-nav menu  ml-auto"><li itemscope="itemscope" id="menu-item-10371" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10371 nav-item"></li>
+<li itemscope="itemscope" id="menu-item-8074" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-7533 current_page_item menu-item-8074 active nav-item"></li>
+<li itemscope="itemscope" id="menu-item-4007" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-4007 active nav-item"><a href="" class="nav-link">baixe o app </a></li>
+<li itemscope="itemscope" id="menu-item-8932" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8932 nav-item"><a href="" class="nav-link">blog</a></li>
+<li itemscope="itemscope" id="menu-item-2348" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2348 nav-item"><a href="" class="nav-link">contato </a></li>
+</ul>
+</div>    <div class="alter_nav ">
+        <ul class="navbar-nav search_cart menu">
+
+            
+                    </ul>
+    </div></div>    </nav>
+</header>		
+
+<div data-elementor-type="wp-page" data-elementor-id="7533" class="elementor elementor-7533" data-elementor-settings="[]">
+<div data-elementor-type="wp-page" data-elementor-id="7533" class="elementor elementor-7533" data-elementor-settings="[]">
+						<div class="elementor-inner">
+							<div class="elementor-section-wrap">
+							<section class="elementor-section elementor-top-section elementor-element elementor-element-222a938 elementor-section-full_width elementor-section-height-default elementor-section-height-default" data-id="222a938" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+						<div class="elementor-container elementor-column-gap-default">
+							<div class="elementor-row">
+					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-02983cd" data-id="02983cd" data-element_type="column">
+			<div class="elementor-column-wrap elementor-element-populated">
+					
+					<div class="elementor-widget-wrap">
+	
+				<section class="elementor-section elementor-inner-section elementor-element elementor-element-e926622 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="e926622" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+						<div class="elementor-container elementor-column-gap-default">
+							<div class="elementor-row">
+					<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-5608e4b" data-id="5608e4b" data-element_type="column">
+			<div class="elementor-column-wrap elementor-element-populated">
+							<div class="elementor-widget-wrap">
+						<div class="elementor-element elementor-element-d59b151 elementor-widget elementor-widget-saasland_main_features" data-id="d59b151" data-element_type="widget" data-widget_type="saasland_main_features.default">
+				<div class="elementor-widget-container">
+			  
+			  <section class="hosting_service_area sec_pad">
+             
+   <div class="container">
+                    <div class="hosting_title text-center">
+                                                <h2 class="sl_color_s wow fadeInUp" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
+                        Seu novo cardápio digital                 </h2>
+                                                                <p class="wow fadeInUp" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+                            Acabe com as filas de compra no seu estabelecimento.<br>
+Agora seus clientes podem comprar pelo próprio celular.                        </p>
+                                    </div>
+              
+<div class="container">
+<div class="row">
+                                                        <div class="col-lg-4 col-sm-6 elementor-repeater-item-a82c3e1">
+                                    <div class="hosting_service_item">
+                                        <div class="icon">
+                                            <img src="./index_files/cardapios-digitais.svg" class="attachment-full size-full" alt="">                                        </div>
+                                                                                                                                    <h4 class="h_head">Cardápios digitais com pagamento integrado</h4>
+                                                                                                                                                                        <p>Seu cliente escaneia o QR, acessa o cardápio, efetua o pagamento e retira direto no bar.</p>
+                                                                            </div>
+                                </div>
+                                                                <div class="col-lg-4 col-sm-6 elementor-repeater-item-46c91a3">
+                                    <div class="hosting_service_item">
+                                        <div class="icon">
+                                            <img src="./index_files/delivery-takeaway.svg" class="attachment-full size-full" alt="">                                        </div>
+                                                                                                                                    <h4 class="h_head">Menos filas, mais consumo</h4>
+                                                                                                                                                                        <p>Acabe com as filas na hora do cliente retirar o produto.</p>
+                                                                            </div>
+                                </div>
+                                                                <div class="col-lg-4 col-sm-6 elementor-repeater-item-427125b">
+                                    <div class="hosting_service_item">
+                                        <div class="icon">
+                                            <img src="./index_files/dinheiro-maquininhas.svg" class="attachment-full size-full" alt="">                                        </div>
+                                                                                                                                    <h4 class="h_head">Maquininha é coisa do passado!</h4>
+                                                                                                                                                                        <p>Chega de taxas de aluguel, equipamento estragado e pagar por algo quem não te gera valor.</p>
+                                                                            </div>
+                                </div>
+                                                                <div class="col-lg-4 col-sm-6 elementor-repeater-item-3cc0896">
+                                    <div class="hosting_service_item">
+                                        <div class="icon">
+                                            <img src="./index_files/sem-filas-aglomeracoes.svg" class="attachment-full size-full" alt="">                                        </div>
+                                                                                                                                    <h4 class="h_head">Conheça seus clientes</h4>
+                                                                                                                                                                        <p>Entenda o comportamento de consumo dos seus clientes e tome decisões mais inteligentes.</p>
+                                                                            </div>
+                                </div>
+                                                                <div class="col-lg-4 col-sm-6 elementor-repeater-item-afd2ff3">
+                                    <div class="hosting_service_item">
+                                        <div class="icon">
+                                            <img src="./index_files/aumente-vendas-1.svg" class="attachment-full size-full" alt="">                                        </div>
+                                                                                                                                    <h4 class="h_head">Tenha equipes menores</h4>
+                                                                                                                                                                        <p>Comprando pelo celular você não precisa mais do caixa tradicional.</p>
+                                                                            </div>
+                                </div>
+                                                                
+                                                                <div class="col-lg-4 col-sm-6 elementor-repeater-item-da4a497">
+                                    <div class="hosting_service_item">
+                                        <div class="icon">
+                                            <img src="./index_files/circle-bar-graph.svg" class="attachment-full size-full" alt="">                                        </div>
+                                                                                                                                    <h4 class="h_head">Sua festa na sua mão</h4>
+                                                                                                                                                                        <p>Relatório em tempo real de todas suas vendas, saiba o que vende mais e menos.</p>
+                                                                            </div>
+                                </div>
+                                                                
+                                                                <div class="col-lg-4 col-sm-6 elementor-repeater-item-a5fec2a">
+                                    <div class="hosting_service_item">
+                                        <div class="icon">
+                                            <img src="./index_files/growth-svgrepo-com.svg" class="attachment-full size-full" alt="">                                        </div>
+                                                                                                                                    <h4 class="h_head">Aumente o consumo</h4>
+                                                                                                                                                                        <p>Envie promoções exclusivas para seus clientes, todos eles serão notificados.</p>
+                                                                            </div>
+                                </div>
+                                                    <div class="col-lg-4 col-sm-6 elementor-repeater-item-a5fec2a">
+                                    <div class="hosting_service_item">
+                                        <div class="icon">
+                                            <img src="./index_files/cara-andando-fodase.svg" class="attachment-full size-full" alt="">                                        </div>
+                                                                                                                                    <h4 class="h_head">Seus clientes voltam mais</h4>
+                                                                                                                                                                        <p>Saiba quem são os clientes que mais consomem e mande entradas gratuítas para os próximos eventos.</p>
+                                                                            </div>
+                                </div><div class="col-lg-4 col-sm-6 elementor-repeater-item-a5fec2a">
+                                    <div class="hosting_service_item">
+                                        <div class="icon">
+                                            <img src="./index_files/stock-svgrepo-com.svg" class="attachment-full size-full" alt="">                                        </div>
+                                                                                                                                    <h4 class="h_head">Controle seu estoque</h4>
+                                                                                                                                                                        <p>Nunca fique sem vender porque acabou o estoque. E se estiver sobrando demais, envie uma promoção para aumentar as vendas.</p>
+                                                                            </div>
+                                </div></div>	</div></div></section>
+        		</div>
+				</div>
+		</div>
+					</div>
+		</div>
+								</div>
+					</div>
+		</section>
+						</div>
+					</div>
+		</div>
+								</div>
+					</div>
+		</section>
+		
+		
+				</div>
+						</div>
+            <center style="margin-bottom: 100px;">
+    <h1>Como funciona?</h1><div>
+    <center>
+        
+    
+    
+      <img src="./index_files/usuario1.png" width="360" height="453">
+      <img src="./index_files/usuario2.png" width="360" height="453">
+      <img src="./index_files/usuario3.png" width="360" height="453">
+    </center>
+</div>
+</center></div>           
+      <footer class="new_footer_area bg_color">
+                    <div class="new_footer_top" style="margin-bottom: -80px;">
+                        <div class="container" style="margin-bottom: -150px;">
+                            <div class="row">
+                                <div id="text-1" class="widget footer-widget col-lg-4 col-md-6 widget_text">
+                            <div class="f_widget about-widget">			<div class="textwidget"><div style="display: table; padding-bottom: 25px;"><img class="alignnone wp-image-15 size-full" src="./index_files/logo2(1).png" alt="" width="87" height="34" srcset="./index_files/logo2(1).png" sizes="(max-width: 87px) 100vw, 87px"></div>
+<div>
+<strong></strong>
+
+Belo Horizonte – MG<br>
+41.436.278/0001-93<br>
+contato@fiip.com.br
+</div>
+</div>
+		</div></div>
+		<div id="nav_menu-2" class="widget footer-widget col-lg-4 col-md-6 widget_nav_menu">
+                            <div class="f_widget about-widget pl_70"><div class="menu-main-menu-container"><ul id="menu-main-menu-1" class="menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10371"><a href="" class="nav-link"> </a></li>
+</ul></div></div></div><div id="custom_html-2" class="widget_text widget footer-widget col-lg-4 col-md-6 widget_custom_html">
+                            <div class="widget_text f_widget about-widget pl_70"><div class="textwidget custom-html-widget"><div class="estamos_aqui f_widget about-widget pl_70"><h3 class="widget_title f-title f_600 t_color f_size_18 mb_40">Redes Sociais</h3>        
+        
+        <div class="f_social_icon">
+					                            <a href="" class="ti-facebook"></a>
+                            <a href="" class="ti-instagram"></a>
+                                                                                </div>
+
+        </div></div></div></div>                            </div>
+                        </div>
+					
+				   </div>
+                    <div class="footer_bottom">
+                        <div class="container">
+                            <div class="row align-items-center">
+                                <div class="col-lg-6 col-sm-7">
+                                    <p>© Fiip 2021 Todos os direitos reservados.</p>
+                                </div>
+                                <div class="col-lg-6 col-sm-5 text-right">
+                                    <p>Feito com ❤️</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+                
+</div> <!-- Body Wrapper -->
+
+<link rel="stylesheet" property="stylesheet" id="rs-icon-set-pe-7s-css" href="./index_files/pe-icon-7-stroke.css" type="text/css" media="all">
+<link href="./index_files/css(3)" rel="stylesheet" property="stylesheet" media="all" type="text/css">
+
+	<script type="text/javascript">
+		(function () {
+			var c = document.body.className;
+			c = c.replace(/woocommerce-no-js/, 'woocommerce-js');
+			document.body.className = c;
+		})()
+	</script>
+			<script type="text/javascript">
+		if(typeof revslider_showDoubleJqueryError === "undefined") {
+			function revslider_showDoubleJqueryError(sliderID) {
+				var err = "<div class='rs_error_message_box'>";
+				err += "<div class='rs_error_message_oops'>Oops...</div>";
+				err += "<div class='rs_error_message_content'>";
+				err += "You have some jquery.js library include that comes after the Slider Revolution files js inclusion.<br>";
+				err += "To fix this, you can:<br>&nbsp;&nbsp;&nbsp; 1. Set 'Module General Options' -> 'Advanced' -> 'jQuery & OutPut Filters' -> 'Put JS to Body' to on";
+				err += "<br>&nbsp;&nbsp;&nbsp; 2. Find the double jQuery.js inclusion and remove it";
+				err += "</div>";
+			err += "</div>";
+				var slider = document.getElementById(sliderID); slider.innerHTML = err; slider.style.display = "block";
+			}
+		}
+		</script>
+		<script type="text/javascript">
+		if(typeof revslider_showDoubleJqueryError === "undefined") {
+			function revslider_showDoubleJqueryError(sliderID) {
+				var err = "<div class='rs_error_message_box'>";
+				err += "<div class='rs_error_message_oops'>Oops...</div>";
+				err += "<div class='rs_error_message_content'>";
+				err += "You have some jquery.js library include that comes after the Slider Revolution files js inclusion.<br>";
+				err += "To fix this, you can:<br>&nbsp;&nbsp;&nbsp; 1. Set 'Module General Options' -> 'Advanced' -> 'jQuery & OutPut Filters' -> 'Put JS to Body' to on";
+				err += "<br>&nbsp;&nbsp;&nbsp; 2. Find the double jQuery.js inclusion and remove it";
+				err += "</div>";
+			err += "</div>";
+				var slider = document.getElementById(sliderID); slider.innerHTML = err; slider.style.display = "block";
+			}
+		}
+		</script>
+<link rel="stylesheet" id="chat-features-css" href="./index_files/ba0a0c5d610d57bf735dd59c65cfd0cb.css" type="text/css" media="all">
+<link rel="stylesheet" id="rs-polyfold-front-css" href="./index_files/bf7c98eade5dedab78d4055fccced6a2.css" type="text/css" media="all">
+<script type="text/javascript" src="./index_files/wow.min.js.download" id="wow-js"></script>
+<script type="text/javascript" src="./index_files/4f6715b5f5e7d09eff279458867fc6d8.js.download" id="appart-custom-js"></script>
+<script type="text/javascript" src="./index_files/a656a13dac1d6b95e4d4f35d1489aa5b.js.download" id="saasland-main-js"></script>
+<script type="text/javascript" src="./index_files/wp-polyfill.min.js.download" id="wp-polyfill-js"></script>
+<script type="text/javascript" id="wp-polyfill-js-after">
+</script>
+<script type="text/javascript" src="./index_files/i18n.min.js.download" id="wp-i18n-js"></script>
+<script type="text/javascript" src="./index_files/03f13d51cb6bf0883ef1046a1ce7038b.js.download" id="wphb-1-js"></script>
+<script type="text/javascript" id="wphb-1-js-after">
+
+window.lodash = _.noConflict();
+</script>
+<script type="text/javascript" id="contact-form-7-js-extra">
+</script>
+<script type="text/javascript" src="./index_files/ba33e7a0d8e774cf0133ce0b71dd01f9.js.download" id="contact-form-7-js"></script>
+<script type="text/javascript" src="./index_files/d6abc10e4028cb391f85264652349dee.js.download" id="propper-js"></script>
+<script type="text/javascript" src="./index_files/bootstrap.min.js.download" id="bootstrap-js"></script>
+<script type="text/javascript" src="./index_files/3647d48400806ba0d2b9d9b4ef4122ce.js.download" id="parallax-scroll-js"></script>
+<script type="text/javascript" src="./index_files/jquery.magnific-popup.min.js.download" id="magnific-popup-js"></script>
+<script type="text/javascript" src="./index_files/jquery.mCustomScrollbar.concat.min.js.download" id="mCustomScrollbar-js"></script>
+<script type="text/javascript" id="saasland-custom-wp-js-extra">
+</script>
+<script type="text/javascript" src="./index_files/custom-wp.js.download" id="saasland-custom-wp-js"></script>
+<script type="text/javascript" id="saasland-custom-wp-js-after">
+
+            ;(function($){
+                $(document).ready(function () {
+                    $( '.widget_search' ).removeClass( 'widget_search' ).addClass( 'search_widget_two' );
+                });
+            })(jQuery);
+</script>
+<script type="text/javascript" src="./index_files/saasland_themes_script.js.download" id="saasland-settings-scripts-js"></script>
+<script type="text/javascript" id="mdcf7-script-js-extra">
+/* <![CDATA[ */
+var parameters = {"file":"FIELD","files":"FIELDS"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./index_files/d5039d1ee68d44aa0c0538196fb4ba1f.js.download" id="mdcf7-script-js"></script>
+<script type="text/javascript" id="mdcf7-script-js-after">
+jQuery(document).ready(function ($) { jQuery('.wpcf7 .wpcf7-date').pickadate({ selectMonths: true, selectYears: 10, min: [1997,1,14], max: [2027,1,14], monthsFull: ['January', 'February', 'March', 'Aprill', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'], monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'], weekdaysFull: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], weekdaysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'], today: 'TODAY', clear: 'CLEAR', close: 'OK', format: 'yyyy-mm-dd', closeOnSelect: false }); jQuery('.wpcf7 .timepicker').pickatime({ default: 'now', fromnow: 0, twelvehour: false, cleartext: 'CLEAR', donetext: 'OK', canceltext: 'CANCEL', autoclose: false, ampmclickable: true
+}); });
+</script>
+<script type="text/javascript" src="./index_files/wp-embed.min.js.download" id="wp-embed-js"></script>
+<script type="text/javascript" src="./index_files/revolution.addon.polyfold.min.js.download" id="rs-polyfold-front-js"></script>
+<script type="text/javascript" src="./index_files/webpack.runtime.min.js.download" id="elementor-webpack-runtime-js"></script>
+<script type="text/javascript" src="./index_files/frontend-modules.min.js.download" id="elementor-frontend-modules-js"></script>
+<script type="text/javascript" src="./index_files/core.min.js.download" id="jquery-ui-core-js"></script>
+<script type="text/javascript" src="./index_files/dialog.min.js.download" id="elementor-dialog-js"></script>
+<script type="text/javascript" src="./index_files/waypoints.min.js.download" id="elementor-waypoints-js"></script>
+<script type="text/javascript" src="./index_files/share-link.min.js.download" id="share-link-js"></script>
+<script type="text/javascript" src="./index_files/swiper.min.js.download" id="swiper-js"></script>
+<script type="text/javascript" id="elementor-frontend-js-before">
+</script>
+<script type="text/javascript" src="./index_files/frontend.min.js.download" id="elementor-frontend-js"></script><span id="elementor-device-mode" class="elementor-screen-only"></span>
+<script type="text/javascript" src="./index_files/preloaded-elements-handlers.min.js.download" id="preloaded-elements-handlers-js"></script>
+<!-- start Simple Custom CSS and JS -->
+<script type="text/javascript">
+wpcf7.cached = 0; 
+
+</script>
+<!-- end Simple Custom CSS and JS -->
+<!-- start Simple Custom CSS and JS -->
+<script type="text/javascript">
+/* Default comment here */ 
+document.getElementById('whatsapp-button').addEventListener('click', function() {
+  fbq('track', 'Contact');
+}, false );
+
+document.getElementById('whatsapp-button-top').addEventListener('click', function() {
+  fbq('track', 'Contact');
+}, false );
+
+document.getElementById('whatsapp-button-signup-top').addEventListener('click', function() {
+  fbq('track', 'Lead');
+}, false );
+
+document.getElementById('whatsapp-button-signup-mid').addEventListener('click', function() {
+  fbq('track', 'Lead');
+}, false );
+
+document.getElementById('whatsapp-button-signup-bottom').addEventListener('click', function() {
+  fbq('track', 'Lead');
+}, false );
+
+document.getElementById('form-button-signup').addEventListener('click', function() {
+  fbq('track', 'Lead');
+}, false );
+
+document.addEventListener( 'wpcf7mailsent', function( event ) {
+    if ( '10919' == event.detail.contactFormId ) {
+        fbq('track', 'Lead');
+    }
+}, false );
+
+document.addEventListener( 'wpcf7mailsent', function( event ) {
+    if ( '8858' == event.detail.contactFormId ) {
+        fbq('track', 'Contact');
+    }
+}, false );
+</script>
+<!-- end Simple Custom CSS and JS -->
+
+<div class="hiddendiv common"></div><img src="https://a.visitorqueue.com/open?l=7&amp;q=cGFnZVZpZXdJZD03MjQwY2UzMC1mYTVmLTRiMDAtYTVjYS0zOTZlZmQ3ZGEzMGMmcGF0aE5hbWU9LyZ2aXNpdG9ySWQ9OTEwNDQ0OWQtYWE0OS00ZWE3LTkzMjAtYWIwYzMxOTZiMWE2JmFjY2Vzc2VkQXQ9MTYxODg0MDU3MSZ2cVRyYWNraW5nSWQ9MTA0MTFhNTQtODhkYy00MWUyLWExYjYtYTJiNGU4MjQxYmY2Jm9yaWdpbj13d3cucGlja3MuY29tLmJyJnNjcmlwdFZlcnNpb249MS4zLjA=" width="1" height="1" id="vqttgif" style="display: none;"></body></html>
