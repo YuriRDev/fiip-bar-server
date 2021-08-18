@@ -72,6 +72,43 @@ class CategoriaController {
 
   }
 
+  async list(req: Request, res: Response) {
+    const id = req.userId;
+    const { barId } = req.body;
+
+    const barRepo = getRepository(Bars)
+    try {
+      const bar = await barRepo.findOne({
+        where: { id: barId }
+      })
+
+      if (bar) {
+        if (bar.host.id == id) {
+          console.log("eh o host!")
+          const categoriaRepo = getRepository(Categorias)
+          const categorias = await categoriaRepo.find({
+            where: { bar: bar }, select: ['id', 'name', 'index']
+          })
+
+          return res.json(categorias)
+        } else {
+          return res.status(403).json({
+            error: 'You are not the host for this bar!'
+          })
+        }
+      } else {
+        return res.status(404).json({
+          error: 'Invalid Bar Id!'
+        })
+      }
+    } catch {
+      return res.status(404).json({
+        error: 'Invalid Bar Id!'
+      })
+    }
+
+  }
+
 
 }
 

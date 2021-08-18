@@ -198,6 +198,110 @@ class BarsController {
 
   }
 
+  async getById(req: Request, res: Response) {
+    const { id } = req.body;
+
+    if (id) {
+
+      const barRepo = getRepository(Bars)
+
+      const bar = await barRepo.findOne({
+        where: { id }
+      })
+
+      if (bar) {
+        let dataAgora = new Date()
+        let timezone = dataAgora.getTimezoneOffset()
+
+        // timezone brasil = 180 
+        if (timezone != 180) {
+          let b = 180 - timezone;
+          dataAgora.setMinutes(dataAgora.getMinutes() - b);
+        }
+
+        const diaAgora = dataAgora.getDay()
+
+        // verificar se o bar esta aberto
+        const diasAberto = JSON.parse(bar.open)
+        let barAberto = false
+        diasAberto.map((item: any) => {
+          if (item.dia == diaAgora) {
+            item.aberto.map((dia: string) => {
+              const setarHoraInicio = Number(dia.split(' - ')[0].split(':')[0])
+              const setarMinutoInicio = Number(dia.split(' - ')[0].split(':')[1])
+
+              const setarHoraFinal = Number(dia.split(' - ')[1].split(':')[0])
+              const setarMinutoFinal = Number(dia.split(' - ')[1].split(':')[1])
+
+              if ((dataAgora.getHours() >= setarHoraInicio) && (dataAgora.getHours() <= setarHoraFinal)) {
+                if (dataAgora.getHours() == setarHoraInicio) {
+                  if (dataAgora.getMinutes() >= setarMinutoInicio) {
+                    barAberto = true
+                  } else {
+                    barAberto = false
+                  }
+                }
+                if (dataAgora.getHours() == setarHoraFinal) {
+                  if (dataAgora.getMinutes() <= setarMinutoFinal) {
+                    barAberto = true
+                  } else {
+                    barAberto = false
+                  }
+                }
+                barAberto = true
+              }
+            })
+          }
+        })
+
+
+
+        return res.json({
+          id: bar.id,
+          title: bar.title,
+          description: bar.title,
+          address: bar.address,
+          open: barAberto,
+          color: bar.color,
+          photo_url: bar.photo_url,
+          type: bar.type,
+        })
+      } else {
+        return res.status(404).json({
+          error: 'Bar not found'
+        })
+      }
+
+    } else {
+      return res.status(404).json({
+        error: 'Missing params'
+      })
+    }
+
+  }
+
+  async list(req: Request, res: Response) {
+    const id = req.userId;
+
+    const hostRepo = getRepository(Host)
+    const host = await hostRepo.findOne({
+      where: { id }
+    })
+    if (host) {
+      const barRepo = getRepository(Bars)
+      const bares = await barRepo.find({
+        where: { host: host }, select: ['id', 'title', 'photo_url', 'active']
+      })
+
+      return res.json(bares)
+
+    } else {
+      return res.status(403).json({
+        error: 'you are not a host'
+      })
+    }
+  }
+
 
 }
 

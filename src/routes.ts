@@ -18,9 +18,12 @@ routes.post('/loginHost', HostController.login)
 // BARES
 routes.post('/createBar', AuthMiddleware, BarsController.create)
 routes.post('/getBarByName', BarsController.getByName)
+routes.post('/getBarById', AuthMiddleware, BarsController.getById)
+routes.post('/listBars', AuthMiddleware, BarsController.list)
 
 //ITEMS
 routes.post('/createCategoria', AuthMiddleware, CategoriasController.create)
+routes.post('/listCategoria', AuthMiddleware, CategoriasController.list)
 
 routes.post('/createItem', AuthMiddleware, ItemsController.create)
 routes.post('/listById', ItemsController.listById)

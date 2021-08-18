@@ -162,7 +162,13 @@ class ItemController {
           itemsOrdem[index].items = itemsAdicionados
         })
 
-        return res.json(itemsOrdem)
+        let itemsCompensados: any = []
+        itemsOrdem.map((item: any) => {
+          itemsCompensados.push(item)
+        })
+
+
+        return res.json(itemsCompensados)
 
       } else {
         return res.status(404).json({
