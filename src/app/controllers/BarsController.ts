@@ -119,10 +119,8 @@ class BarsController {
   async getByName(req: Request, res: Response) {
     const { name } = req.body;
 
-
+    
     if (name) {
-      console.log("access by ", req.socket.remoteAddress)
-
       const barRepo = getRepository(Bars)
 
       const bar = await barRepo.createQueryBuilder("bares")
@@ -187,8 +185,6 @@ class BarsController {
           type: bar.type,
         })
       } else {
-        console.log("access inalid, 404 ", req.socket.remoteAddress)
-
         return res.status(404).json({
           error: 'Bar not found'
         })
