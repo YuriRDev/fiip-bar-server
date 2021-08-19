@@ -61,7 +61,7 @@ class ItemController {
                 where: { categoria }
               })
 
-              console.log(itemsLength)
+              console.log(itemsLength.length)
 
               if (categoria) {
                 if (categoria.bar.host.id == host.id) {
@@ -73,7 +73,7 @@ class ItemController {
                   item.name = name;
                   item.price = price;
                   item.categoria = categoria;
-                  item.index = Number(itemsLength)
+                  item.index = Number(itemsLength.length)
 
                   await itemRepo.save(item)
 
@@ -97,7 +97,6 @@ class ItemController {
                 })
               }
             } catch (err) {
-              console.log(err)
               return res.status(404).json({
                 error: 'Invalid Categoria Id!'
               })
