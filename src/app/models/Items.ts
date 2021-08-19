@@ -18,6 +18,9 @@ class Items {
   description: string;
 
   @Column()
+  index: Number;
+
+  @Column()
   price: number;
 
   @ManyToOne(type => Categorias, Categorias => Categorias.items, { eager: true })

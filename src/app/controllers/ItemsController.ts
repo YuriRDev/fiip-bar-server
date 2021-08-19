@@ -56,6 +56,13 @@ class ItemController {
                 where: { id: categoriaId }
               })
 
+
+              const itemsLength = await itemRepo.find({
+                where: { categoria }
+              })
+
+              console.log(itemsLength)
+
               if (categoria) {
                 if (categoria.bar.host.id == host.id) {
                   item.active = true;
@@ -66,6 +73,7 @@ class ItemController {
                   item.name = name;
                   item.price = price;
                   item.categoria = categoria;
+                  item.index = Number(itemsLength)
 
                   await itemRepo.save(item)
 
@@ -156,9 +164,11 @@ class ItemController {
                 price: itemzinho.price,
                 photo_url: itemzinho.photo_url,
                 active: itemzinho.active,
+                index: itemzinho.index
               })
             }
           })
+          itemsAdicionados.sort((a: any, b: any) => (a.index > b.index) ? 1 : -1)
           itemsOrdem[index].items = itemsAdicionados
         })
 
@@ -176,7 +186,8 @@ class ItemController {
         })
       }
 
-    } catch {
+    } catch (err) {
+      console.log(err)
       return res.status(404).json({
         error: 'Bar Not Found!'
       })

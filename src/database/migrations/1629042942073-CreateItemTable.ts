@@ -32,6 +32,10 @@ export class CreateItemTable1629042942073 implements MigrationInterface {
                     type: 'float',
                 },
                 {
+                    name: 'index',
+                    type: 'integer'
+                },
+                {
                     name: 'photo_url',
                     type: 'varchar',
                     isNullable: true,
