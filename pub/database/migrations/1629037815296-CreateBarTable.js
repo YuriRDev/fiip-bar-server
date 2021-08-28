@@ -36,69 +36,86 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateHostTable1601401972093 = void 0;
+exports.CreateBarTable1629037815296 = void 0;
 var typeorm_1 = require("typeorm");
-var CreateHostTable1601401972093 = /** @class */ (function () {
-    function CreateHostTable1601401972093() {
+var CreateBarTable1629037815296 = /** @class */ (function () {
+    function CreateBarTable1629037815296() {
     }
-    CreateHostTable1601401972093.prototype.up = function (queryRunner) {
+    CreateBarTable1629037815296.prototype.up = function (queryRunner) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, queryRunner.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"')];
+                    case 0: return [4 /*yield*/, queryRunner.createTable(new typeorm_1.Table({
+                            name: 'bares',
+                            columns: [
+                                {
+                                    name: 'id',
+                                    type: 'uuid',
+                                    isPrimary: true,
+                                    generationStrategy: 'uuid',
+                                    default: 'uuid_generate_v4()'
+                                },
+                                {
+                                    name: 'hostId',
+                                    type: 'uuid'
+                                },
+                                {
+                                    name: 'title',
+                                    type: 'varchar'
+                                },
+                                {
+                                    name: 'description',
+                                    type: 'varchar'
+                                },
+                                {
+                                    name: 'address',
+                                    type: 'varchar',
+                                },
+                                {
+                                    name: 'open',
+                                    type: 'varchar',
+                                },
+                                {
+                                    name: 'color',
+                                    type: 'varchar',
+                                },
+                                {
+                                    name: 'photo_url',
+                                    type: 'varchar',
+                                },
+                                {
+                                    name: 'type',
+                                    type: 'varchar'
+                                },
+                                {
+                                    name: 'active',
+                                    type: 'boolean',
+                                },
+                                {
+                                    name: 'created_at',
+                                    type: 'timestamp'
+                                },
+                            ]
+                        }))];
                     case 1:
-                        _a.sent();
-                        return [4 /*yield*/, queryRunner.createTable(new typeorm_1.Table({
-                                name: 'hosts',
-                                columns: [
-                                    {
-                                        name: 'id',
-                                        type: 'uuid',
-                                        isPrimary: true,
-                                        generationStrategy: 'uuid',
-                                        default: 'uuid_generate_v4()'
-                                    },
-                                    {
-                                        name: 'name',
-                                        type: 'varchar'
-                                    },
-                                    {
-                                        name: 'email',
-                                        type: 'varchar',
-                                        isUnique: true
-                                    },
-                                    {
-                                        name: 'password',
-                                        type: 'varchar'
-                                    },
-                                    {
-                                        name: 'created_at',
-                                        type: 'timestamp'
-                                    },
-                                ]
-                            }))];
-                    case 2:
                         _a.sent();
                         return [2 /*return*/];
                 }
             });
         });
     };
-    CreateHostTable1601401972093.prototype.down = function (queryRunner) {
+    CreateBarTable1629037815296.prototype.down = function (queryRunner) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, queryRunner.dropTable('hosts')];
+                    case 0: return [4 /*yield*/, queryRunner.dropTable('bares')];
                     case 1:
-                        _a.sent();
-                        return [4 /*yield*/, queryRunner.query('DROP EXTENSION "uuid-ossp"')];
-                    case 2:
                         _a.sent();
                         return [2 /*return*/];
                 }
             });
         });
     };
-    return CreateHostTable1601401972093;
+    return CreateBarTable1629037815296;
 }());
-exports.CreateHostTable1601401972093 = CreateHostTable1601401972093;
+exports.CreateBarTable1629037815296 = CreateBarTable1629037815296;

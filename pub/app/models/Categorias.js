@@ -14,36 +14,33 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
 var Bars_1 = __importDefault(require("./Bars"));
-var Host = /** @class */ (function () {
-    function Host() {
+var Items_1 = __importDefault(require("./Items"));
+var Categorias = /** @class */ (function () {
+    function Categorias() {
     }
     __decorate([
         typeorm_1.PrimaryGeneratedColumn('uuid'),
         __metadata("design:type", String)
-    ], Host.prototype, "id", void 0);
+    ], Categorias.prototype, "id", void 0);
     __decorate([
         typeorm_1.Column(),
         __metadata("design:type", String)
-    ], Host.prototype, "name", void 0);
+    ], Categorias.prototype, "name", void 0);
     __decorate([
         typeorm_1.Column(),
-        __metadata("design:type", String)
-    ], Host.prototype, "email", void 0);
+        __metadata("design:type", Number)
+    ], Categorias.prototype, "index", void 0);
     __decorate([
-        typeorm_1.Column(),
-        __metadata("design:type", String)
-    ], Host.prototype, "password", void 0);
+        typeorm_1.ManyToOne(function (type) { return Bars_1.default; }, function (Bars) { return Bars.categorias; }, { eager: true }),
+        __metadata("design:type", Bars_1.default)
+    ], Categorias.prototype, "bar", void 0);
     __decorate([
-        typeorm_1.CreateDateColumn(),
-        __metadata("design:type", Date)
-    ], Host.prototype, "created_at", void 0);
-    __decorate([
-        typeorm_1.OneToMany(function (type) { return Bars_1.default; }, function (Bars) { return Bars.host; }),
+        typeorm_1.OneToMany(function (type) { return Items_1.default; }, function (Items) { return Items.categoria; }),
         __metadata("design:type", Array)
-    ], Host.prototype, "bars", void 0);
-    Host = __decorate([
-        typeorm_1.Entity('hosts')
-    ], Host);
-    return Host;
+    ], Categorias.prototype, "items", void 0);
+    Categorias = __decorate([
+        typeorm_1.Entity('categorias')
+    ], Categorias);
+    return Categorias;
 }());
-exports.default = Host;
+exports.default = Categorias;

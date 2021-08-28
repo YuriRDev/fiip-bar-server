@@ -7,7 +7,7 @@ typeorm_1.createConnection({
     "port": 5432,
     "username": "postgres",
     "password": "Fiip#Db1.",
-    "database": "evento",
+    "database": "bar",
     "entities": [
         __dirname + '/../**/**{.ts,.js}'
     ],

@@ -14,36 +14,53 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
 var Bars_1 = __importDefault(require("./Bars"));
-var Host = /** @class */ (function () {
-    function Host() {
+var Categorias_1 = __importDefault(require("./Categorias"));
+var Items = /** @class */ (function () {
+    function Items() {
     }
     __decorate([
         typeorm_1.PrimaryGeneratedColumn('uuid'),
         __metadata("design:type", String)
-    ], Host.prototype, "id", void 0);
+    ], Items.prototype, "id", void 0);
+    __decorate([
+        typeorm_1.ManyToOne(function (type) { return Bars_1.default; }, function (Bars) { return Bars.items; }),
+        __metadata("design:type", Bars_1.default)
+    ], Items.prototype, "bar", void 0);
     __decorate([
         typeorm_1.Column(),
         __metadata("design:type", String)
-    ], Host.prototype, "name", void 0);
+    ], Items.prototype, "name", void 0);
     __decorate([
         typeorm_1.Column(),
         __metadata("design:type", String)
-    ], Host.prototype, "email", void 0);
+    ], Items.prototype, "description", void 0);
+    __decorate([
+        typeorm_1.Column(),
+        __metadata("design:type", Number)
+    ], Items.prototype, "index", void 0);
+    __decorate([
+        typeorm_1.Column(),
+        __metadata("design:type", Number)
+    ], Items.prototype, "price", void 0);
+    __decorate([
+        typeorm_1.ManyToOne(function (type) { return Categorias_1.default; }, function (Categorias) { return Categorias.items; }, { eager: true }),
+        __metadata("design:type", Categorias_1.default)
+    ], Items.prototype, "categoria", void 0);
     __decorate([
         typeorm_1.Column(),
         __metadata("design:type", String)
-    ], Host.prototype, "password", void 0);
+    ], Items.prototype, "photo_url", void 0);
+    __decorate([
+        typeorm_1.Column(),
+        __metadata("design:type", Boolean)
+    ], Items.prototype, "active", void 0);
     __decorate([
         typeorm_1.CreateDateColumn(),
         __metadata("design:type", Date)
-    ], Host.prototype, "created_at", void 0);
-    __decorate([
-        typeorm_1.OneToMany(function (type) { return Bars_1.default; }, function (Bars) { return Bars.host; }),
-        __metadata("design:type", Array)
-    ], Host.prototype, "bars", void 0);
-    Host = __decorate([
-        typeorm_1.Entity('hosts')
-    ], Host);
-    return Host;
+    ], Items.prototype, "created_at", void 0);
+    Items = __decorate([
+        typeorm_1.Entity('items')
+    ], Items);
+    return Items;
 }());
-exports.default = Host;
+exports.default = Items;

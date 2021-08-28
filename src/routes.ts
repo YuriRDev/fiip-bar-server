@@ -21,11 +21,18 @@ routes.post('/getBarByName', BarsController.getByName)
 routes.post('/getBarById', AuthMiddleware, BarsController.getById)
 routes.post('/listBars', AuthMiddleware, BarsController.list)
 
-//ITEMS
+// CATEGORIAS
 routes.post('/createCategoria', AuthMiddleware, CategoriasController.create)
 routes.post('/listCategoria', AuthMiddleware, CategoriasController.list)
+routes.post('/changeCategoriaIndex', AuthMiddleware, CategoriasController.changeIndex)
+routes.post('/deleteCategory', AuthMiddleware, CategoriasController.delete)
 
-routes.post('/createItem', AuthMiddleware, ItemsController.create)
+// ITEMS
 routes.post('/listById', ItemsController.listById)
+routes.post('/createItem', AuthMiddleware, ItemsController.create)
+routes.post('/editItem', AuthMiddleware, ItemsController.editById)
+routes.post('/deleteItem', AuthMiddleware, ItemsController.delete)
+routes.post('/changeItemIndex', AuthMiddleware, ItemsController.indexOrder)
+
 
 export default routes;

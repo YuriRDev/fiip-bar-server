@@ -36,69 +36,58 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateHostTable1601401972093 = void 0;
+exports.CreateCategoriasTable1629048309630 = void 0;
 var typeorm_1 = require("typeorm");
-var CreateHostTable1601401972093 = /** @class */ (function () {
-    function CreateHostTable1601401972093() {
+var CreateCategoriasTable1629048309630 = /** @class */ (function () {
+    function CreateCategoriasTable1629048309630() {
     }
-    CreateHostTable1601401972093.prototype.up = function (queryRunner) {
+    CreateCategoriasTable1629048309630.prototype.up = function (queryRunner) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, queryRunner.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"')];
+                    case 0: return [4 /*yield*/, queryRunner.createTable(new typeorm_1.Table({
+                            name: 'categorias',
+                            columns: [
+                                {
+                                    name: 'id',
+                                    type: 'uuid',
+                                    isPrimary: true,
+                                    generationStrategy: 'uuid',
+                                    default: 'uuid_generate_v4()'
+                                },
+                                {
+                                    name: 'name',
+                                    type: 'varchar'
+                                },
+                                {
+                                    name: 'index',
+                                    type: 'integer'
+                                },
+                                {
+                                    name: 'barId',
+                                    type: 'uuid'
+                                }
+                            ]
+                        }))];
                     case 1:
-                        _a.sent();
-                        return [4 /*yield*/, queryRunner.createTable(new typeorm_1.Table({
-                                name: 'hosts',
-                                columns: [
-                                    {
-                                        name: 'id',
-                                        type: 'uuid',
-                                        isPrimary: true,
-                                        generationStrategy: 'uuid',
-                                        default: 'uuid_generate_v4()'
-                                    },
-                                    {
-                                        name: 'name',
-                                        type: 'varchar'
-                                    },
-                                    {
-                                        name: 'email',
-                                        type: 'varchar',
-                                        isUnique: true
-                                    },
-                                    {
-                                        name: 'password',
-                                        type: 'varchar'
-                                    },
-                                    {
-                                        name: 'created_at',
-                                        type: 'timestamp'
-                                    },
-                                ]
-                            }))];
-                    case 2:
                         _a.sent();
                         return [2 /*return*/];
                 }
             });
         });
     };
-    CreateHostTable1601401972093.prototype.down = function (queryRunner) {
+    CreateCategoriasTable1629048309630.prototype.down = function (queryRunner) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, queryRunner.dropTable('hosts')];
+                    case 0: return [4 /*yield*/, queryRunner.dropTable('categorias')];
                     case 1:
-                        _a.sent();
-                        return [4 /*yield*/, queryRunner.query('DROP EXTENSION "uuid-ossp"')];
-                    case 2:
                         _a.sent();
                         return [2 /*return*/];
                 }
             });
         });
     };
-    return CreateHostTable1601401972093;
+    return CreateCategoriasTable1629048309630;
 }());
-exports.CreateHostTable1601401972093 = CreateHostTable1601401972093;
+exports.CreateCategoriasTable1629048309630 = CreateCategoriasTable1629048309630;
