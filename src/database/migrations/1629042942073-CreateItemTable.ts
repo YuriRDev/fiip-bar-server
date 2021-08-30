@@ -41,12 +41,13 @@ export class CreateItemTable1629042942073 implements MigrationInterface {
                     isNullable: true,
                 },
                 {
-                    name: 'categoriaId',
-                    type: 'uuid',
+                    name: 'adicionais',
+                    type: 'varchar',
+                    isNullable: true
                 },
                 {
-                    name: 'active',
-                    type: 'boolean',
+                    name: 'categoriaId',
+                    type: 'uuid',
                 },
                 {
                     name: 'created_at',

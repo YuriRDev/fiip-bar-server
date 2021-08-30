@@ -1,12 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateHostTable1601401972093 implements MigrationInterface {
+export class CreatePedidosTable1630280334146 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"')
-
         await queryRunner.createTable(new Table({
-            name: 'hosts',
+            name: 'pedidos',
             columns: [
                 {
                     name: 'id',
@@ -16,36 +14,46 @@ export class CreateHostTable1601401972093 implements MigrationInterface {
                     default: 'uuid_generate_v4()'
                 },
                 {
+                    name: 'barId',
+                    type: 'uuid'
+                },
+                {
+                    name: 'session',
+                    type: 'varchar'
+                },
+                {
+                    name: 'mesa',
+                    type: 'integer',
+                    isNullable: true
+                },
+                {
                     name: 'name',
                     type: 'varchar'
                 },
                 {
-                    name: 'email',
-                    type: 'varchar',
-                    isUnique: true
-                },
-                {
-                    name: 'password',
+                    name: 'phone',
                     type: 'varchar'
                 },
                 {
-                    name: 'premium_validate',
-                    type: 'timestamp',
-                    isNullable: true,
+                    name: 'items',
+                    type: 'varchar'
+                },
+                {
+                    name: 'status',
+                    type: 'integer'
                 },
                 {
                     name: 'created_at',
                     type: 'timestamp'
                 },
 
+
             ]
         }))
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('hosts');
-        await queryRunner.query('DROP EXTENSION "uuid-ossp"')
-
+        await queryRunner.dropTable('pedidos');
     }
 
 }

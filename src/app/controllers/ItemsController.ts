@@ -66,7 +66,6 @@ class ItemController {
 
               if (categoria) {
                 if (categoria.bar.host.id == host.id) {
-                  item.active = true;
                   item.bar = bar;
                   item.created_at = dataAgora;
                   item.photo_url = photo_url;
@@ -396,7 +395,7 @@ class ItemController {
                     Promise.all(
                       itemsIndex.map(async (item: string, index: number) => {
                         const itemDoMap = await itemsRepo.findOne({ where: { id: item } })
-                        if(itemDoMap){
+                        if (itemDoMap) {
                           itemDoMap.index = index;
                           await itemsRepo.save(itemDoMap)
                         }
@@ -453,6 +452,49 @@ class ItemController {
 
   }
 
+  async uploadData(req: Request, res: Response) {
+    const id = req.userId
+
+    const { backup } = req.body;
+
+    const barRepo = getRepository(Bars)
+    const barAchado = await barRepo.findOne({
+      where: { host: { id } }
+    })
+
+    if (barAchado) {
+      Promise.all(
+        backup.map((item: any) => {
+          let categoriaId = item.categoriaId
+          item.items.map(async (itemzinho: any) => {
+            const itemRepo = getRepository(Items)
+            const item = new Items()
+
+            item.id = itemzinho.id,
+              item.bar = barAchado
+            item.name = itemzinho.name,
+              item.description = itemzinho.description,
+              item.price = itemzinho.price,
+              item.photo_url = itemzinho.photo_url,
+              item.index = itemzinho.index,
+              item.categoria = itemzinho.categoria
+            item.created_at = new Date('2021-08-18 13:00:00')
+            await itemRepo.save(item)
+          })
+        })
+      ).then(() => {
+        return res.json({
+          ok: true
+        })
+      }).catch(() => {
+        console.log("error!")
+      })
+    }
+
+
+
+
+  }
 
 }
 

@@ -29,9 +29,6 @@ class Items {
   @Column()
   photo_url: string;
 
-  @Column()
-  active: boolean;
-
   @CreateDateColumn()
   created_at: Date;
 }

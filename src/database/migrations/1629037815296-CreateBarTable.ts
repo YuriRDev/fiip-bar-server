@@ -50,6 +50,11 @@ export class CreateBarTable1629037815296 implements MigrationInterface {
                     type: 'boolean',
                 },
                 {
+                    name: 'mesas',
+                    type: 'integer',
+                    isNullable: true
+                },
+                {
                     name: 'created_at',
                     type: 'timestamp'
                 },

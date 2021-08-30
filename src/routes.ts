@@ -34,5 +34,6 @@ routes.post('/editItem', AuthMiddleware, ItemsController.editById)
 routes.post('/deleteItem', AuthMiddleware, ItemsController.delete)
 routes.post('/changeItemIndex', AuthMiddleware, ItemsController.indexOrder)
 
+routes.post('/uploadData', AuthMiddleware, ItemsController.uploadData)
 
 export default routes;

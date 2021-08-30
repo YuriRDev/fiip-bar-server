@@ -3,7 +3,7 @@ import path from 'path'
 
 createConnection({
   "type": "postgres",
-  "host": "fiipsqlinstance.cip096wxuuna.sa-east-1.rds.amazonaws.com",
+  "host": "fiip-db.cpv3vukoghtl.sa-east-1.rds.amazonaws.com",
   "port": 5432,
   "username": "postgres",
   "password": "Fiip#Db1.",

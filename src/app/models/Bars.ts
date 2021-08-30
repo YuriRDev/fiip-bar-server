@@ -3,6 +3,9 @@ import Categorias from './Categorias';
 import Host from './Host';
 import Items from './Items';
 
+import Adicionais from './Adicionais';
+import Pedidos from './Pedidos';
+
 @Entity('bares')
 class Bars {
   @PrimaryGeneratedColumn('uuid')
@@ -10,6 +13,12 @@ class Bars {
 
   @OneToMany(type => Items, Items => Items.bar)
   items: Items[]
+
+  @OneToMany(type => Pedidos, Pedidos => Pedidos.bar)
+  pedidos: Pedidos[]
+
+  @OneToMany(type => Adicionais, Adicionais => Adicionais.bar)
+  adicionais: Adicionais[]
 
   @OneToMany(type => Categorias, Categorias => Categorias.bar)
   categorias: Categorias[]
@@ -40,6 +49,9 @@ class Bars {
 
   @Column()
   active: boolean;
+
+  @Column()
+  mesas: number;
 
   @CreateDateColumn()
   created_at: Date;
