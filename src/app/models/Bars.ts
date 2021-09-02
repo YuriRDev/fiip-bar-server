@@ -53,6 +53,9 @@ class Bars {
   @Column()
   mesas: number;
 
+  @Column()
+  allowObs: boolean;
+
   @CreateDateColumn()
   created_at: Date;
 }

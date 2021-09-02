@@ -8,12 +8,24 @@ import AuthMiddleware from './app/middlewares/AuthMiddleware'
 import BarsController from './app/controllers/BarsController';
 import ItemsController from './app/controllers/ItemsController';
 import CategoriasController from './app/controllers/CategoriasController';
+import SessionController from './app/controllers/SessionController';
+import PedidosController from './app/controllers/PedidosController';
 
 const routes = Router();
 
 // HOSTS 
 routes.post('/createHost', HostController.create)
 routes.post('/loginHost', HostController.login)
+
+// SESSIONS
+routes.post('/session', SessionController.create)
+
+// PEDIDOS
+routes.post('/order', AuthMiddleware, PedidosController.create)
+routes.post('/listOrders', AuthMiddleware, PedidosController.listUser)
+routes.post('/listBarOrders', AuthMiddleware, PedidosController.listBar)
+
+routes.post('/pedidoValue', AuthMiddleware, PedidosController.setNewValue)
 
 // BARES
 routes.post('/createBar', AuthMiddleware, BarsController.create)
@@ -29,6 +41,9 @@ routes.post('/deleteCategory', AuthMiddleware, CategoriasController.delete)
 
 // ITEMS
 routes.post('/listById', ItemsController.listById)
+routes.post('/getById', ItemsController.getById)
+
+
 routes.post('/createItem', AuthMiddleware, ItemsController.create)
 routes.post('/editItem', AuthMiddleware, ItemsController.editById)
 routes.post('/deleteItem', AuthMiddleware, ItemsController.delete)

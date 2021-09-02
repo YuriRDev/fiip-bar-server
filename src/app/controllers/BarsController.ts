@@ -119,7 +119,7 @@ class BarsController {
   async getByName(req: Request, res: Response) {
     const { name } = req.body;
 
-    
+
     if (name) {
       const barRepo = getRepository(Bars)
 
@@ -172,6 +172,17 @@ class BarsController {
           }
         })
 
+        const barRepo = getRepository(Bars)
+        const barAchado = await barRepo.findOne({
+          where: { id: bar.id }
+        })
+
+        let isPremium = false;
+        if (barAchado) {
+          if (new Date(barAchado.host.premium_validate) > dataAgora) {
+            isPremium = true
+          }
+        }
 
 
         return res.json({
@@ -183,6 +194,9 @@ class BarsController {
           color: bar.color,
           photo_url: bar.photo_url,
           type: bar.type,
+          isPremium: isPremium,
+          allowObs: bar.allowObs,
+          active: bar.active,
         })
       } else {
         return res.status(404).json({
@@ -221,6 +235,7 @@ class BarsController {
 
         const diaAgora = dataAgora.getDay()
 
+
         // verificar se o bar esta aberto
         const diasAberto = JSON.parse(bar.open)
         let barAberto = false
@@ -254,7 +269,17 @@ class BarsController {
           }
         })
 
+        let isPremium = false;
 
+        if (new Date(bar.host.premium_validate) > dataAgora) {
+          isPremium = true
+        }
+
+        const oneDay = 24 * 60 * 60 * 1000
+        const firstDate: any = new Date(bar.host.premium_validate)
+        const secondDate: any = dataAgora
+
+        const diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
 
         return res.json({
           id: bar.id,
@@ -265,6 +290,8 @@ class BarsController {
           color: bar.color,
           photo_url: bar.photo_url,
           type: bar.type,
+          isPremium: isPremium,
+          premium_validate: diffDays
         })
       } else {
         return res.status(404).json({
@@ -292,6 +319,7 @@ class BarsController {
       const bares = await barRepo.find({
         where: { host: host }, select: ['id', 'title', 'photo_url', 'active']
       })
+
 
       return res.json(bares)
 

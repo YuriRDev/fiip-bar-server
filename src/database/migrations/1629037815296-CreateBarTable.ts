@@ -55,6 +55,11 @@ export class CreateBarTable1629037815296 implements MigrationInterface {
                     isNullable: true
                 },
                 {
+                    name: 'allowObs',
+                    type: 'boolean',
+                    default: false
+                },
+                {
                     name: 'created_at',
                     type: 'timestamp'
                 },

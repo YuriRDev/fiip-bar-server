@@ -18,8 +18,8 @@ export class CreatePedidosTable1630280334146 implements MigrationInterface {
                     type: 'uuid'
                 },
                 {
-                    name: 'session',
-                    type: 'varchar'
+                    name: 'sessionId',
+                    type: 'uuid'
                 },
                 {
                     name: 'mesa',
@@ -41,6 +41,15 @@ export class CreatePedidosTable1630280334146 implements MigrationInterface {
                 {
                     name: 'status',
                     type: 'integer'
+                },
+                {
+                    name: 'payment',
+                    type: 'varchar'
+                },
+                {
+                    name: 'troco',
+                    type: 'integer',
+                    isNullable: true
                 },
                 {
                     name: 'created_at',

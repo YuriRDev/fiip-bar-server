@@ -195,6 +195,56 @@ class ItemController {
 
   }
 
+  async getById(req: Request, res: Response) {
+    const { barId, itemId } = req.body;
+
+    if (itemId && barId) {
+      // validar se sao UUID
+      if (validate(itemId) && validate(barId)) {
+        const itemRepo = getRepository(Items)
+        const itemAchado = await itemRepo.findOne({
+          where: { id: itemId, bar: { id: barId } }
+        })
+
+        if (itemAchado) {
+          if (itemAchado.adicionais) {
+            // CALCULAR ADICIONAL, ISSO EH TRABALHO PRO YURI DO FUTURO, ASSINADO YURI 30/AGOSTO/2021
+
+            const item = {
+              id: itemAchado.id,
+              name: itemAchado.name,
+              description: itemAchado.description,
+              price: itemAchado.price,
+              photo_url: itemAchado.photo_url,
+            }
+            return res.json(item)
+          } else {
+            const item = {
+              id: itemAchado.id,
+              name: itemAchado.name,
+              description: itemAchado.description,
+              price: itemAchado.price,
+              photo_url: itemAchado.photo_url,
+            }
+            return res.json(item)
+          }
+        } else {
+          return res.status(404).json({
+            error: 'Item not found!'
+          })
+        }
+      } else {
+        return res.status(503).json({
+          error: 'itemId and BarId MUST be UUID'
+        })
+      }
+    } else {
+      return res.status(503).json({
+        error: 'Missing params'
+      })
+    }
+  }
+
   async editById(req: Request, res: Response) {
     const id = req.userId;
     const { itemId, barId, name, description, price, categoriaId, photo_url } = req.body;
@@ -204,6 +254,7 @@ class ItemController {
         error: 'Missing params!'
       })
     } else {
+
       // possui todas as informacoes basicas, agora eh ver se o barId, categoriaId e o itemId sao UUIDV4
       if (typeof (price) == 'number') {
         if (validate(itemId)) {
@@ -305,6 +356,7 @@ class ItemController {
           })
         }
       } else {
+        console.log("Price must be a number")
         return res.status(503).json({
           error: 'Price must be a number'
         })

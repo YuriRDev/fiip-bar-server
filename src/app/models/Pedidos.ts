@@ -2,6 +2,7 @@ import { Column, Entity, CreateDateColumn, OneToMany, PrimaryGeneratedColumn, Ma
 import Bars from './Bars';
 import Host from './Host';
 import Items from './Items';
+import Sessions from './Sessions';
 
 @Entity('pedidos')
 class Pedidos {
@@ -11,8 +12,8 @@ class Pedidos {
   @ManyToOne(type => Bars, Bars => Bars.pedidos, { eager: true })
   bar: Bars;
 
-  @Column()
-  session: string;
+  @ManyToOne(type => Sessions, Sessions => Sessions.pedidos, { eager: true })
+  session: Sessions;
 
   @Column()
   mesa: number;
@@ -28,6 +29,12 @@ class Pedidos {
 
   @Column()
   status: number;
+
+  @Column()
+  payment: string;
+
+  @Column()
+  troco: number;
 
   @CreateDateColumn()
   created_at: Date;
