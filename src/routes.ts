@@ -33,6 +33,8 @@ routes.post('/getBarByName', BarsController.getByName)
 routes.post('/getBarById', AuthMiddleware, BarsController.getById)
 routes.post('/listBars', AuthMiddleware, BarsController.list)
 
+routes.post('/editPremium', AuthMiddleware, BarsController.editPremium)
+
 // CATEGORIAS
 routes.post('/createCategoria', AuthMiddleware, CategoriasController.create)
 routes.post('/listCategoria', AuthMiddleware, CategoriasController.list)

@@ -60,6 +60,11 @@ export class CreateBarTable1629037815296 implements MigrationInterface {
                     default: false
                 },
                 {
+                    name: 'telefone',
+                    type: 'varchar',
+                    isNullable: true
+                },
+                {
                     name: 'created_at',
                     type: 'timestamp'
                 },

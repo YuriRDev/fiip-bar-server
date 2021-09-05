@@ -39,6 +39,9 @@ class Bars {
   type: string;
 
   @Column()
+  telefone: string;
+
+  @Column()
   open: string;
 
   @Column()

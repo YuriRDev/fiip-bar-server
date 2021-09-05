@@ -17,7 +17,7 @@ class PedidosController {
   async create(req: Request, res: Response) {
     let id = req.userId;
 
-    const { nome, telefone, paymentMethod, troco, carrinho, barId } = req.body;
+    const { nome, telefone, paymentMethod, troco, carrinho, barId, mesa } = req.body;
 
     // verificar se o ID eh valido
 
@@ -96,18 +96,44 @@ class PedidosController {
                         // payment 0,1,2
                         // troco = payment == 0 ? troco : null
 
+                        let mesaEscolhida = null
 
-                        novoPedido.bar = bar;
-                        novoPedido.session = session;
-                        novoPedido.name = nome;
-                        novoPedido.phone = telefone;
-                        novoPedido.items = JSON.stringify(CarrinhoFinal);
-                        novoPedido.created_at = dataAgora;
-                        novoPedido.payment = Number(paymentMethod) == 0 ? 'Dinheiro' : Number(paymentMethod) == 1 ? 'Credito' : 'Debito';
-                        novoPedido.troco = Number(paymentMethod) == 0 ? troco >= 1 ? troco : null : null
-                        novoPedido.status = 0;
+                        if (bar.mesas != null) {
 
-                        pedidosRepo.save(novoPedido)
+                          if (mesa > 0) {
+                            mesaEscolhida = mesa
+
+                            novoPedido.bar = bar;
+                            novoPedido.session = session;
+                            novoPedido.mesa = mesaEscolhida;
+                            novoPedido.name = nome;
+                            novoPedido.phone = telefone;
+                            novoPedido.items = JSON.stringify(CarrinhoFinal);
+                            novoPedido.created_at = dataAgora;
+                            novoPedido.payment = Number(paymentMethod) == 0 ? 'Dinheiro' : Number(paymentMethod) == 1 ? 'Credito' : 'Debito';
+                            novoPedido.troco = Number(paymentMethod) == 0 ? troco >= 1 ? troco : null : null
+                            novoPedido.status = 0;
+
+                            pedidosRepo.save(novoPedido)
+                          } else {
+                            return res.status(403).json({
+                              error: 'Missing mesa!'
+                            })
+                          }
+                        } else {
+
+                          novoPedido.bar = bar;
+                          novoPedido.session = session;
+                          novoPedido.name = nome;
+                          novoPedido.phone = telefone;
+                          novoPedido.items = JSON.stringify(CarrinhoFinal);
+                          novoPedido.created_at = dataAgora;
+                          novoPedido.payment = Number(paymentMethod) == 0 ? 'Dinheiro' : Number(paymentMethod) == 1 ? 'Credito' : 'Debito';
+                          novoPedido.troco = Number(paymentMethod) == 0 ? troco >= 1 ? troco : null : null
+                          novoPedido.status = 0;
+
+                          pedidosRepo.save(novoPedido)
+                        }
 
 
                       } else {
@@ -265,7 +291,7 @@ class PedidosController {
         const pedidosRepo = getRepository(Pedidos)
         const pedidos = await pedidosRepo.find({
           where: { bar: barAchado, created_at: MoreThan(dataAgora) },
-          select: ['id', 'name', 'phone', 'items', 'status', 'payment', 'troco', 'created_at']
+          select: ['id', 'name', 'phone', 'items', 'status', 'payment', 'mesa', 'troco', 'created_at']
         })
 
         let pedidosArray: any = [
@@ -300,7 +326,8 @@ class PedidosController {
             payment: item.payment,
             troco: item.troco,
             minutes: minutes,
-            total: valorTotal
+            total: valorTotal,
+            mesa: item.mesa 
           }
           if (item.status < 5) {
             pedidosArray[item.status].items.push(itemObj)

@@ -197,6 +197,8 @@ class BarsController {
           isPremium: isPremium,
           allowObs: bar.allowObs,
           active: bar.active,
+          mesas: bar.mesas,
+          telefone: bar.telefone
         })
       } else {
         return res.status(404).json({
@@ -317,7 +319,7 @@ class BarsController {
     if (host) {
       const barRepo = getRepository(Bars)
       const bares = await barRepo.find({
-        where: { host: host }, select: ['id', 'title', 'photo_url', 'active']
+        where: { host: host }, select: ['id', 'active' ,'title', 'photo_url', 'telefone', 'mesas']
       })
 
 
@@ -330,6 +332,99 @@ class BarsController {
     }
   }
 
+
+  async editPremium(req: Request, res: Response) {
+    const id = req.userId
+
+    const hostRepo = getRepository(Host)
+    const host = await hostRepo.findOne({
+      where: { id }
+    })
+
+    if (host) {
+
+      const barRepo = getRepository(Bars)
+      const barAchado = await barRepo.findOne({
+        where: { host }
+      })
+
+      if (barAchado) {
+
+        let dataAgora = new Date()
+        let timezone = dataAgora.getTimezoneOffset()
+
+        // timezone brasil = 180 
+        if (timezone != 180) {
+          let b = 180 - timezone;
+          dataAgora.setMinutes(dataAgora.getMinutes() - b);
+        }
+
+
+        if (new Date(host.premium_validate) >= dataAgora) {
+
+
+          const { mesas, pedidos, telefone } = req.body;
+
+          if ((mesas || mesas == null) && (pedidos == true || pedidos == false) && (telefone || telefone == null)) {
+            if (pedidos == true || pedidos == false) {
+              if (mesas >= 0 && mesas <= 100 || mesas == null) {
+
+                if (telefone == null) {
+
+                  barAchado.active = pedidos;
+                  barAchado.mesas = mesas;
+                  barAchado.telefone = telefone;
+
+                  await barRepo.save(barAchado)
+                } else {
+                  if (telefone.length == 11) {
+                    barAchado.active = pedidos;
+                    barAchado.mesas = mesas;
+                    barAchado.telefone = telefone;
+
+                    await barRepo.save(barAchado)
+                  } else {
+
+                    return res.status(503).json({
+                      error: 'Telefone length must be 11'
+                    })
+                  }
+                }
+
+                return res.json({
+                  changed: true
+                })
+
+              } else {
+                return res.status(503).json({
+                  error: 'Mesas must be a number between 0 and 100'
+                })
+              }
+            } else {
+              return res.status(503).json({
+                error: 'Pedidos must be a boolean'
+              })
+            }
+          } else {
+            return res.status(503).json({ error: 'Missing params' })
+          }
+        } else {
+          return res.status(403).json({
+            error: 'Not premium!'
+          })
+        }
+      } else {
+        return res.status(403).json({
+          error: 'You have 0 bar'
+        })
+      }
+    } else {
+      return res.status(403).json({
+        error: 'You are not a host'
+      })
+    }
+
+  }
 
 }
 
