@@ -23,10 +23,6 @@ export class CreateAdicionaisTable1630277911110 implements MigrationInterface {
                     type: 'varchar'
                 },
                 {
-                    name: 'description',
-                    type: 'varchar'
-                },
-                {
                     name: 'price',
                     type: 'float'
                 },

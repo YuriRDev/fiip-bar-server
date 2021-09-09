@@ -12,6 +12,7 @@ import Items from '../models/Items';
 import Categorias from '../models/Categorias';
 
 import { validate } from 'uuid'
+import Adicionais from '../models/Adicionais';
 
 class ItemController {
   async create(req: Request, res: Response) {
@@ -210,14 +211,53 @@ class ItemController {
           if (itemAchado.adicionais) {
             // CALCULAR ADICIONAL, ISSO EH TRABALHO PRO YURI DO FUTURO, ASSINADO YURI 30/AGOSTO/2021
 
-            const item = {
-              id: itemAchado.id,
-              name: itemAchado.name,
-              description: itemAchado.description,
-              price: itemAchado.price,
-              photo_url: itemAchado.photo_url,
-            }
-            return res.json(item)
+            // Kkkkkkk vsf yuri 30.08.21, to fazendo isso agora 7.7.21 
+
+
+            const adicionaisArray = JSON.parse(itemAchado.adicionais)
+
+            let adicionaisObjArray: any = []
+
+            const adicionaisRepo = getRepository(Adicionais)
+            Promise.all(
+              adicionaisArray.map(async (item: string) => {
+                const adicionalAchado = await adicionaisRepo.findOne({
+                  where: { id: item, bar: {id: barId} }, select: ['id', 'name', 'price']
+                })
+                if(adicionalAchado){
+                  // console.log(adicionalAchado)
+                  adicionaisObjArray.push(adicionalAchado)
+                } else {
+                  // remover o adicional do item
+
+                  let itemAdicionalAchado = JSON.parse(itemAchado.adicionais)
+
+                  itemAdicionalAchado.map((itemzinho: any, index: number) => {
+                    if(itemzinho == item){
+                      itemAdicionalAchado.splice(index, 1)
+                    }
+                  })
+
+                  itemAchado.adicionais = JSON.stringify(itemAdicionalAchado)
+                  await itemRepo.save(itemAchado)
+                }
+              })
+            ).then(() => {
+              const item = {
+                id: itemAchado.id,
+                name: itemAchado.name,
+                description: itemAchado.description,
+                price: itemAchado.price,
+                photo_url: itemAchado.photo_url,
+                adicionais: adicionaisObjArray
+              }
+              return res.json(item)
+            }).catch(() => {
+              return res.status(503).json({
+                error: 'Error interno??'
+              })
+            })
+
           } else {
             const item = {
               id: itemAchado.id,

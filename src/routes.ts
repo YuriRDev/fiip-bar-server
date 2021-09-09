@@ -10,6 +10,7 @@ import ItemsController from './app/controllers/ItemsController';
 import CategoriasController from './app/controllers/CategoriasController';
 import SessionController from './app/controllers/SessionController';
 import PedidosController from './app/controllers/PedidosController';
+import AdicionalController from './app/controllers/AdicionalController';
 
 const routes = Router();
 
@@ -45,6 +46,11 @@ routes.post('/deleteCategory', AuthMiddleware, CategoriasController.delete)
 routes.post('/listById', ItemsController.listById)
 routes.post('/getById', ItemsController.getById)
 
+// Adicionais
+routes.post('/createAdicional', AuthMiddleware, AdicionalController.create)
+routes.post('/listAdicional', AuthMiddleware, AdicionalController.list)
+routes.post('/deleteAdicional', AuthMiddleware, AdicionalController.delete)
+routes.post('/editAdicional', AuthMiddleware, AdicionalController.edit)
 
 routes.post('/createItem', AuthMiddleware, ItemsController.create)
 routes.post('/editItem', AuthMiddleware, ItemsController.editById)

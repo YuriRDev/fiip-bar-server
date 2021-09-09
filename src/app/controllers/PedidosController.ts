@@ -7,11 +7,13 @@ import axios from 'axios';
 import Bars from '../models/Bars';
 import Items from '../models/Items';
 import Categorias from '../models/Categorias';
+import jwt from 'jsonwebtoken'
 
 import { validate } from 'uuid'
 import Sessions from '../models/Sessions';
 import Pedidos from '../models/Pedidos';
 import Host from '../models/Host';
+import Adicionais from '../models/Adicionais';
 
 class PedidosController {
   async create(req: Request, res: Response) {
@@ -22,9 +24,42 @@ class PedidosController {
     // verificar se o ID eh valido
 
     const sessionRepo = getRepository(Sessions)
-    const session = await sessionRepo.findOne({
+    const sessionUser = await sessionRepo.findOne({
       where: { id }
     })
+
+    let session: any;
+    let createdNewSession = false;
+
+    let token: string;
+
+    console.log("chegou aqui")
+
+    if (!sessionUser) {
+      console.log('nao achou sessao')
+      let userIp = (req.connection.remoteAddress?.split(':').pop())
+      const sessionRepo = getRepository(Sessions)
+      const newSession = new Sessions()
+
+      let dataAgora = new Date()
+      let timezone = dataAgora.getTimezoneOffset()
+
+      // timezone brasil = 180 
+      if (timezone != 180) {
+        let b = 180 - timezone;
+        dataAgora.setMinutes(dataAgora.getMinutes() - b);
+      }
+
+      newSession.ip = String(userIp);
+      newSession.created_at = dataAgora;
+
+      await sessionRepo.save(newSession);
+      session = newSession.id;
+      createdNewSession = true
+      token = jwt.sign({ id: newSession.id }, secret, { expiresIn: '1000d' })
+    } else {
+      session = sessionUser
+    }
 
     if (session) {
       if (nome && telefone && paymentMethod && carrinho && barId) {
@@ -51,18 +86,35 @@ class PedidosController {
                 if (bar) {
                   if (bar.active) {
 
+                    let adicionaisTotalArray: any = []
+
                     Promise.all(
-                      carrinho.map(async (item: any) => {
+                      carrinho.map(async (item: any, index: number) => {
                         if (validate(item.id)) {
                           const itemAchado = await itemRepo.findOne({ where: { id: item.id } })
                           if (itemAchado && itemAchado.categoria.bar.id == barId) {
                             // itemName, price, obs, categoria
+
+                            if (item.adicionais) {
+                              item.adicionais.map((itemzinho: any) => {
+                                adicionaisTotalArray.push({
+                                  adicional: itemzinho,
+                                  index: index
+                                })
+                              })
+
+
+                            }
+
                             CarrinhoFinal.push({
                               name: itemAchado.name,
                               quantity: item.quantity,
                               price: itemAchado.price,
-                              obs: item.obs
+                              obs: item.obs,
+                              adicionais: []
                             })
+
+                            // SE NAO POSSUI CATEGORIA, NADA MUDA!
 
                           } else {
                             isCarrinhoItemsValid = false;
@@ -71,8 +123,9 @@ class PedidosController {
                           isCarrinhoItemsValid = false
                         }
                       })
-                    ).then(() => {
+                    ).then(async () => {
                       if (isCarrinhoItemsValid) {
+                        // AGORA PEGAR OS NOVOS ADICIONAIS EM NOVA ORDEM DO PROMISE ALL
 
                         const pedidosRepo = getRepository(Pedidos)
                         const novoPedido = new Pedidos()
@@ -85,27 +138,112 @@ class PedidosController {
                           let b = 180 - timezone;
                           dataAgora.setMinutes(dataAgora.getMinutes() - b);
                         }
-                        // Agora salvar no DB : 
-                        // bar 
-                        // sessionId, 
-                        // mesa = null 
-                        // name
-                        // phone 
-                        // items 
-                        // created_At = agora
-                        // payment 0,1,2
-                        // troco = payment == 0 ? troco : null
 
-                        let mesaEscolhida = null
 
-                        if (bar.mesas != null) {
+                        if (adicionaisTotalArray.length > 0) {
+                          // adicionaisTotalArray = {adicional, index}
+                          console.log(adicionaisTotalArray)
 
-                          if (mesa > 0) {
-                            mesaEscolhida = mesa
+                          const adicionalRepo = getRepository(Adicionais)
+
+                          Promise.all(
+                            adicionaisTotalArray.map(async (item: any) => {
+                              const adicionalAchado = await adicionalRepo.findOne({
+                                where: { id: item.adicional, bar: bar }, select: ['id', 'price', 'name']
+                              })
+                              if (adicionalAchado) {
+                                console.log(adicionalAchado)
+                                let arrayAdicional = CarrinhoFinal[item.index].adicionais
+                                arrayAdicional.push(adicionalAchado)
+                                CarrinhoFinal[item.index].adicionais = arrayAdicional
+                              }
+                            })
+                          ).then(() => {
+                            let mesaEscolhida = null
+
+                            if (bar.mesas != null) {
+
+                              if (mesa > 0) {
+                                mesaEscolhida = mesa
+
+                                novoPedido.bar = bar;
+                                novoPedido.session = session;
+                                novoPedido.mesa = mesaEscolhida;
+                                novoPedido.name = nome;
+                                novoPedido.phone = telefone;
+                                novoPedido.items = JSON.stringify(CarrinhoFinal);
+                                novoPedido.created_at = dataAgora;
+                                novoPedido.payment = Number(paymentMethod) == 0 ? 'Dinheiro' : Number(paymentMethod) == 1 ? 'Credito' : 'Debito';
+                                novoPedido.troco = Number(paymentMethod) == 0 ? troco >= 1 ? troco : null : null
+                                novoPedido.status = 0;
+
+                                pedidosRepo.save(novoPedido)
+                                if (createdNewSession) {
+                                  return res.json({ token: token })
+                                } else {
+                                  return res.json({ ok: true })
+                                }
+
+                              } else {
+                                return res.status(403).json({
+                                  error: 'Missing mesa!'
+                                })
+                              }
+                            } else {
+
+                              novoPedido.bar = bar;
+                              novoPedido.session = session;
+                              novoPedido.name = nome;
+                              novoPedido.phone = telefone;
+                              novoPedido.items = JSON.stringify(CarrinhoFinal);
+                              novoPedido.created_at = dataAgora;
+                              novoPedido.payment = Number(paymentMethod) == 0 ? 'Dinheiro' : Number(paymentMethod) == 1 ? 'Credito' : 'Debito';
+                              novoPedido.troco = Number(paymentMethod) == 0 ? troco >= 1 ? troco : null : null
+                              novoPedido.status = 0;
+
+                              pedidosRepo.save(novoPedido)
+
+                              if (createdNewSession) {
+                                return res.json({ token: token })
+                              } else {
+                                return res.json({ ok: true })
+                              }
+
+                            }
+
+                          })
+
+                        } else {
+                          let mesaEscolhida = null
+
+                          if (bar.mesas != null) {
+
+                            if (mesa > 0) {
+                              mesaEscolhida = mesa
+
+                              novoPedido.bar = bar;
+                              novoPedido.session = session;
+                              novoPedido.mesa = mesaEscolhida;
+                              novoPedido.name = nome;
+                              novoPedido.phone = telefone;
+                              novoPedido.items = JSON.stringify(CarrinhoFinal);
+                              novoPedido.created_at = dataAgora;
+                              novoPedido.payment = Number(paymentMethod) == 0 ? 'Dinheiro' : Number(paymentMethod) == 1 ? 'Credito' : 'Debito';
+                              novoPedido.troco = Number(paymentMethod) == 0 ? troco >= 1 ? troco : null : null
+                              novoPedido.status = 0;
+
+                              pedidosRepo.save(novoPedido)
+                              return res.json({ ok: true })
+
+                            } else {
+                              return res.status(403).json({
+                                error: 'Missing mesa!'
+                              })
+                            }
+                          } else {
 
                             novoPedido.bar = bar;
                             novoPedido.session = session;
-                            novoPedido.mesa = mesaEscolhida;
                             novoPedido.name = nome;
                             novoPedido.phone = telefone;
                             novoPedido.items = JSON.stringify(CarrinhoFinal);
@@ -115,25 +253,13 @@ class PedidosController {
                             novoPedido.status = 0;
 
                             pedidosRepo.save(novoPedido)
-                          } else {
-                            return res.status(403).json({
-                              error: 'Missing mesa!'
-                            })
+                            return res.json({ ok: true })
+
                           }
-                        } else {
 
-                          novoPedido.bar = bar;
-                          novoPedido.session = session;
-                          novoPedido.name = nome;
-                          novoPedido.phone = telefone;
-                          novoPedido.items = JSON.stringify(CarrinhoFinal);
-                          novoPedido.created_at = dataAgora;
-                          novoPedido.payment = Number(paymentMethod) == 0 ? 'Dinheiro' : Number(paymentMethod) == 1 ? 'Credito' : 'Debito';
-                          novoPedido.troco = Number(paymentMethod) == 0 ? troco >= 1 ? troco : null : null
-                          novoPedido.status = 0;
-
-                          pedidosRepo.save(novoPedido)
                         }
+
+
 
 
                       } else {
@@ -188,7 +314,6 @@ class PedidosController {
       })
     }
 
-    return res.json({ ok: true })
 
   }
 
@@ -221,28 +346,32 @@ class PedidosController {
           return Number(new Date(b.created_at)) - Number(new Date(a.created_at));
         });
 
-        let valorFinal = 0
 
 
         let novoPedidos: any = []
-        return Promise.all(
-          pedidosAchados.map((item: any) => {
-            JSON.parse(item.items).map((itemzinho: any) => {
-              valorFinal += (itemzinho.quantity * itemzinho.price)
-            })
-            novoPedidos.push({
-              id: item.id,
-              items: JSON.parse(item.items),
-              status: item.status,
-              payment: item.payment,
-              troco: item.troco,
-              created_at: item.created_at,
-              total: valorFinal
-            })
+        pedidosAchados.map((item: any) => {
+
+          let valorFinal = 0
+          JSON.parse(item.items).map((itemzinho: any) => {
+            if (itemzinho.adicionais) {
+              itemzinho.adicionais.map((adicional: any) => {
+                valorFinal += (adicional.price)
+              })
+            }
+            valorFinal += (itemzinho.quantity * itemzinho.price)
           })
-        ).then(() => {
-          return res.json(novoPedidos)
+
+          novoPedidos.push({
+            id: item.id,
+            items: JSON.parse(item.items),
+            status: item.status,
+            payment: item.payment,
+            troco: item.troco,
+            created_at: item.created_at,
+            total: valorFinal
+          })
         })
+        return res.json(novoPedidos)
 
       } else {
         return res.status(404).json({
@@ -327,7 +456,7 @@ class PedidosController {
             troco: item.troco,
             minutes: minutes,
             total: valorTotal,
-            mesa: item.mesa 
+            mesa: item.mesa
           }
           if (item.status < 5) {
             pedidosArray[item.status].items.push(itemObj)

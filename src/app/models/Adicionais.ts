@@ -15,9 +15,6 @@ class Adicionais {
   name: string;
 
   @Column()
-  description: string;
-
-  @Column()
   price: number;
 
   @CreateDateColumn()
