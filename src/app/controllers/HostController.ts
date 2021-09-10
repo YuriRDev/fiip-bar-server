@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { application, Request, response, Response } from 'express'
 import { getRepository } from 'typeorm';
 
 import Host from '../models/Host'
@@ -7,6 +7,7 @@ import jwt from 'jsonwebtoken'
 
 import secret from '../../secret';
 import axios from 'axios';
+import Bars from '../models/Bars';
 
 
 class HostController {
@@ -33,29 +34,66 @@ class HostController {
         // verificar se nome tem mais de 5 caracteres
         // verificar se email eh email
 
+        if (name.split('-').length > 1) {
+          return res.status(503).json({
+            error: 'Can not use - '
+          })
+        } else {
 
-        let dataAgora = new Date()
-        let timezone = dataAgora.getTimezoneOffset()
 
-        // timezone brasil = 180 
-        if (timezone != 180) {
-          let b = 180 - timezone;
-          dataAgora.setMinutes(dataAgora.getMinutes() - b);
+          let dataAgora = new Date()
+          let timezone = dataAgora.getTimezoneOffset()
+
+          // timezone brasil = 180 
+          if (timezone != 180) {
+            let b = 180 - timezone;
+            dataAgora.setMinutes(dataAgora.getMinutes() - b);
+          }
+
+          const barRepo = getRepository(Bars)
+
+          const posts = await barRepo.createQueryBuilder("bares")
+            .where("LOWER(bares.title) = LOWER(:title)", { title: name })
+            .getMany();
+
+          if (posts.length > 0) {
+            return res.status(505).json({
+              error: 'Bar Title already in use'
+            })
+          } else {
+            const host = new Host()
+            host.name = name;
+            host.email = email;
+            host.password = password;
+            host.created_at = dataAgora
+
+            await hostRepo.save(host)
+
+            // agora criar o bar!!
+            const bar = new Bars()
+            bar.host = host;
+            bar.title = name;
+            bar.created_at = dataAgora;
+            bar.description = "";
+            bar.type = 'off';
+            bar.active = false;
+            bar.address = "Adicione um endereco..."
+            bar.open = JSON.stringify([{ "dia": "0", "aberto": ["00:00 - 23:59"] }, { "dia": "1", "aberto": ["00:00 - 23:59"] }, { "dia": "2", "aberto": ["00:00 - 23:59"] }, { "dia": "3", "aberto": ["00:00 - 23:59"] }, { "dia": "4", "aberto": ["00:00 - 23:59"] }, { "dia": "5", "aberto": ["00:00 - 23:59"] }, { "dia": "6", "aberto": ["00:00 - 23:59"] }])
+            bar.color = '#3286C5'
+            bar.photo_url = 'https://fiip-img.s3.sa-east-1.amazonaws.com/addImage.png'
+
+            await barRepo.save(bar)
+
+
+            const token = jwt.sign({ id: host.id }, secret, { expiresIn: '1000d' })
+
+
+            return res.json({
+              token: token
+            })
+          }
         }
 
-        const host = new Host()
-        host.name = name;
-        host.email = email;
-        host.password = password;
-        host.created_at = dataAgora
-
-        await hostRepo.save(host)
-
-        return res.json({
-          id: host.id,
-          name: name,
-          email: email,
-        })
       }
     }
 
@@ -93,6 +131,86 @@ class HostController {
     })
   }
 
+  async edit(req: Request, res: Response) {
+    const id = req.userId;
+
+    const { title, description, color, photo } = req.body;
+
+    if (title  && color && photo) {
+
+      if (title.split("-").length == 1) {
+        const hostRepo = getRepository(Host)
+        const host = await hostRepo.findOne({
+          where: { id }
+        })
+
+        if (host) {
+          const barRepo = getRepository(Bars)
+          const bar = await barRepo.findOne({
+            where: { host }
+          })
+
+          if (bar) {
+
+
+            const posts = await barRepo.createQueryBuilder("bares")
+              .where("LOWER(bares.title) = LOWER(:title)", { title })
+              .getMany();
+
+
+            if (String(bar.title).toLowerCase() != title.toLowerCase()) {
+              if (posts.length > 0) {
+                return res.status(503).json({
+                  error: 'Bar with that name already exists!'
+                })
+              } else {
+                bar.title = title;
+                bar.description = description ? description : null;
+                bar.color = color;
+                bar.photo_url = photo;
+
+                await barRepo.save(bar)
+
+                return res.json({
+                  ok: true
+                })
+
+              }
+            } else {
+              // agora eh salvar os novos dados do cardapio!
+
+              bar.title = title;
+              bar.description = description;
+              bar.color = color;
+              bar.photo_url = photo;
+
+              await barRepo.save(bar)
+
+              return res.json({
+                ok: true
+              })
+
+            }
+
+          } else {
+            return res.status(403).json({
+              error: 'You have 0 bar!'
+            })
+          }
+
+        } else {
+          return res.status(403).json({
+            error: 'You are not a host'
+          })
+        }
+      } else {
+        return res.status(503).json({
+          error: 'Title can not have - as param!'
+        })
+      }
+
+    }
+  }
 }
 
 export default new HostController();

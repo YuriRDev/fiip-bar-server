@@ -33,6 +33,7 @@ routes.post('/createBar', AuthMiddleware, BarsController.create)
 routes.post('/getBarByName', BarsController.getByName)
 routes.post('/getBarById', AuthMiddleware, BarsController.getById)
 routes.post('/listBars', AuthMiddleware, BarsController.list)
+routes.post("/editInfo", AuthMiddleware, HostController.edit)
 
 routes.post('/editPremium', AuthMiddleware, BarsController.editPremium)
 

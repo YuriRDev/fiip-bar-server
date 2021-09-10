@@ -319,11 +319,35 @@ class BarsController {
     if (host) {
       const barRepo = getRepository(Bars)
       const bares = await barRepo.find({
-        where: { host: host }, select: ['id', 'active' ,'title', 'photo_url', 'telefone', 'mesas']
+        where: { host: host }, select: ['id', 'active', 'title', 'photo_url', 'telefone', 'mesas', 'color', 'description']
       })
 
+      let dataAgora = new Date()
+      let timezone = dataAgora.getTimezoneOffset()
 
-      return res.json(bares)
+      // timezone brasil = 180 
+      if (timezone != 180) {
+        let b = 180 - timezone;
+        dataAgora.setMinutes(dataAgora.getMinutes() - b);
+      }
+
+      let arraysBares: any = []
+
+      bares.map((item: any) => {
+        arraysBares.push({
+          id: item.id,
+          active: item.active,
+          title: item.title,
+          photo_url: item.photo_url,
+          telefone: item.telefone,
+          mesas: item.mesas,
+          color: item.color,
+          description: item.description,
+          isPremium: (host.premium_validate > dataAgora)
+        })
+      })
+
+      return res.json(arraysBares)
 
     } else {
       return res.status(403).json({
