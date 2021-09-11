@@ -319,7 +319,7 @@ class BarsController {
     if (host) {
       const barRepo = getRepository(Bars)
       const bares = await barRepo.find({
-        where: { host: host }, select: ['id', 'active', 'title', 'photo_url', 'telefone', 'mesas', 'color', 'description']
+        where: { host: host }, select: ['id', 'active', 'title', 'photo_url', 'telefone', 'mesas', 'color', 'description', 'address']
       })
 
       let dataAgora = new Date()
@@ -343,6 +343,7 @@ class BarsController {
           mesas: item.mesas,
           color: item.color,
           description: item.description,
+          address: item.address,
           isPremium: (host.premium_validate > dataAgora)
         })
       })

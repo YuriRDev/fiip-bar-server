@@ -102,7 +102,7 @@ class CategoriaController {
                 categorias.map(async (item: any) => {
                   const itemRepo = getRepository(Items)
                   const items = await itemRepo.find({
-                    where: { categoria: { id: item.id }}
+                    where: { categoria: { id: item.id } }
                   })
                   categoriaTotal.push({
                     id: item.id,
@@ -259,6 +259,67 @@ class CategoriaController {
     } catch {
       return res.status(404).json({
         error: 'Invalid Bar Id!'
+      })
+    }
+
+  }
+
+  async changeName(req: Request, res: Response) {
+    const id = req.userId;
+
+    const { categoryId, name } = req.body;
+
+    const hostRepo = getRepository(Host)
+    const host = await hostRepo.findOne({
+      where: { id }
+    })
+
+    if (host) {
+      const barRepo = getRepository(Bars)
+      const bar = await barRepo.findOne({
+        where: { host }
+      })
+
+      if (bar) {
+        if (validate(categoryId) && String(name).length > 0) {
+          const categoriaRepo = getRepository(Categorias)
+          const categoria = await categoriaRepo.findOne({
+            where: { id: categoryId, bar: bar }
+          })
+
+          console.log(categoria)
+
+          if (categoria) {
+            categoria.name = name;
+
+            await categoriaRepo.save(categoria)
+
+            return res.json({
+              changed: true
+            })
+
+          } else {
+            return res.status(404).json({
+              error: 'Categoria not found!'
+            })
+          }
+
+        } else {
+          return res.status(503).json({
+            error: 'CateogoryId must be UUID and name length > 0 '
+          })
+        }
+
+
+      } else {
+        return res.status(403).json({
+          error: 'You have 0 bar!'
+        })
+      }
+
+    } else {
+      return res.status(403).json({
+        error: ' You are not a host!'
       })
     }
 

@@ -42,6 +42,7 @@ routes.post('/createCategoria', AuthMiddleware, CategoriasController.create)
 routes.post('/listCategoria', AuthMiddleware, CategoriasController.list)
 routes.post('/changeCategoriaIndex', AuthMiddleware, CategoriasController.changeIndex)
 routes.post('/deleteCategory', AuthMiddleware, CategoriasController.delete)
+routes.post("/renameCategory", AuthMiddleware, CategoriasController.changeName)
 
 // ITEMS
 routes.post('/listById', ItemsController.listById)
