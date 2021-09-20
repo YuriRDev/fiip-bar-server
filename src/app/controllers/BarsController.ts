@@ -178,11 +178,18 @@ class BarsController {
         })
 
         let isPremium = false;
+        let isDelivery = false;
+        let deliveryActive = false
         if (barAchado) {
+          if (new Date(barAchado.host.delivery_validate) > dataAgora) {
+            isDelivery = true
+            deliveryActive = barAchado.deliveryActive
+          }
           if (new Date(barAchado.host.premium_validate) > dataAgora) {
             isPremium = true
           }
         }
+
 
 
         return res.json({
@@ -195,10 +202,13 @@ class BarsController {
           photo_url: bar.photo_url,
           type: bar.type,
           isPremium: isPremium,
+          isDelivery: isDelivery,
+          deliveryActive: deliveryActive,
           allowObs: bar.allowObs,
           active: bar.active,
           mesas: bar.mesas,
-          telefone: bar.telefone
+          telefone: bar.telefone,
+          taxaDeEntrega: bar.taxaDeEntrega
         })
       } else {
         return res.status(404).json({
@@ -319,7 +329,7 @@ class BarsController {
     if (host) {
       const barRepo = getRepository(Bars)
       const bares = await barRepo.find({
-        where: { host: host }, select: ['id', 'active', 'title', 'photo_url', 'telefone', 'mesas', 'color', 'description', 'address']
+        where: { host: host }, select: ['id', 'active', 'title', 'photo_url', 'telefone', 'mesas', 'color', 'description', 'address', 'deliveryActive']
       })
 
       let dataAgora = new Date()
@@ -333,7 +343,20 @@ class BarsController {
 
       let arraysBares: any = []
 
+
+
       bares.map((item: any) => {
+        const ONE_DAY = 1000 * 60 * 60 * 24;
+
+        // Calculate the difference in milliseconds
+        const differenceMs = Math.abs(Number(host.premium_validate) - Number(dataAgora));
+        const differenceMs2 = Math.abs(Number(host.delivery_validate) - Number(dataAgora));
+
+
+        // Convert back to days and return
+        const daysPremiumLeft = Math.round(differenceMs / ONE_DAY);
+        const daysDeliveryLeft = Math.round(differenceMs2 / ONE_DAY);
+
         arraysBares.push({
           id: item.id,
           active: item.active,
@@ -344,7 +367,13 @@ class BarsController {
           color: item.color,
           description: item.description,
           address: item.address,
-          isPremium: (host.premium_validate > dataAgora)
+          isPremium: (host.premium_validate > dataAgora),
+          isDelivery: (host.delivery_validate > dataAgora),
+          allowPedidosTrial: host.allowPedidosTrial,
+          allowDeliveryTrial: host.allowDeliveryTrial,
+          premiumDaysLeft: daysPremiumLeft,
+          deliveryDaysLeft: daysDeliveryLeft,
+          deliveryActive: item.deliveryActive,
         })
       })
 
@@ -356,7 +385,6 @@ class BarsController {
       })
     }
   }
-
 
   async editPremium(req: Request, res: Response) {
     const id = req.userId

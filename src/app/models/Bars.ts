@@ -5,6 +5,7 @@ import Items from './Items';
 
 import Adicionais from './Adicionais';
 import Pedidos from './Pedidos';
+import Delivery from './Delivery';
 
 @Entity('bares')
 class Bars {
@@ -16,6 +17,9 @@ class Bars {
 
   @OneToMany(type => Pedidos, Pedidos => Pedidos.bar)
   pedidos: Pedidos[]
+
+  @OneToMany(type => Delivery, Delivery => Delivery.bar)
+  delivery: Delivery[]
 
   @OneToMany(type => Adicionais, Adicionais => Adicionais.bar)
   adicionais: Adicionais[]
@@ -43,6 +47,12 @@ class Bars {
 
   @Column()
   open: string;
+
+  @Column()
+  deliveryActive: boolean;
+
+  @Column()
+  taxaDeEntrega: number;
 
   @Column()
   color: string;

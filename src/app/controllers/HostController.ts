@@ -136,7 +136,7 @@ class HostController {
 
     const { title, description, color, photo } = req.body;
 
-    if (title  && color && photo) {
+    if (title && color && photo) {
 
       if (title.split("-").length == 1) {
         const hostRepo = getRepository(Host)
@@ -211,6 +211,59 @@ class HostController {
 
     }
   }
+
+
+  async getPedidosTrial(req: Request, res: Response) {
+    const id = req.userId;
+
+    console.log(id)
+
+    const hostRepo = getRepository(Host)
+    const host = await hostRepo.findOne({
+      where: { id }
+    })
+
+    if (host) {
+      if (host.allowPedidosTrial) {
+        // agora pegar a data atual e adicionar 14 dias 
+        const data14Dias = new Date(Date.now() + 12096e5);
+
+        host.allowPedidosTrial = false;
+        host.premium_validate = data14Dias;
+        host.premium_type = 1;
+
+        // premium type 1 = essencial
+        // premium type 2 = premium
+        const barRepo = getRepository(Bars)
+        const bar = await barRepo.findOne({
+          where: { host }
+        })
+
+        if (bar) {
+          bar.active = true
+          await barRepo.save(bar)
+        }
+
+
+        await hostRepo.save(host)
+
+        return res.json({
+          ok: true
+        })
+
+      } else {
+        return res.status(403).json({
+          error: 'you are not allowed to get Pedidos Trial!'
+        })
+      }
+
+    } else {
+      return res.status(403).json({
+        error: 'You are not a host!'
+      })
+    }
+  }
+
 }
 
 export default new HostController();

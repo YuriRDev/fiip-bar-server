@@ -1,10 +1,11 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateBarTable1629037815296 implements MigrationInterface {
+export class CreateDeliveryTable1631808802307 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
+
         await queryRunner.createTable(new Table({
-            name: 'bares',
+            name: 'delivery',
             columns: [
                 {
                     name: 'id',
@@ -14,59 +15,53 @@ export class CreateBarTable1629037815296 implements MigrationInterface {
                     default: 'uuid_generate_v4()'
                 },
                 {
-                    name: 'hostId',
+                    name: 'barId',
                     type: 'uuid'
                 },
                 {
-                    name: 'title',
+                    name: 'sessionId',
+                    type: 'uuid'
+                },
+                {
+                    name: 'name',
                     type: 'varchar'
                 },
                 {
-                    name: 'description',
+                    name: 'phone',
                     type: 'varchar'
+                },
+                {
+                    name: 'items',
+                    type: 'varchar'
+                },
+                {
+                    name: 'cep',
+                    type: 'varchar',
                 },
                 {
                     name: 'address',
-                    type: 'varchar',
-                },
-                {
-                    name: 'open',
-                    type: 'varchar',
-                },
-                {
-                    name: 'color',
-                    type: 'varchar',
-                },
-                {
-                    name: 'photo_url',
-                    type: 'varchar',
-                },
-                {
-                    name: 'type',
                     type: 'varchar'
                 },
                 {
-                    name: 'active',
-                    type: 'boolean',
+                    name: 'number',
+                    type: 'varchar'
                 },
                 {
-                    name: 'deliveryActive',
-                    type: 'boolean',
-                    default: false
-                },
-                {
-                    name: 'mesas',
-                    type: 'integer',
+                    name: 'complemento',
+                    type: 'varchar',
                     isNullable: true
                 },
                 {
-                    name: 'allowObs',
-                    type: 'boolean',
-                    default: false
+                    name: 'status',
+                    type: 'integer'
                 },
                 {
-                    name: 'telefone',
-                    type: 'varchar',
+                    name: 'payment',
+                    type: 'varchar'
+                },
+                {
+                    name: 'troco',
+                    type: 'integer',
                     isNullable: true
                 },
                 {
@@ -74,12 +69,13 @@ export class CreateBarTable1629037815296 implements MigrationInterface {
                     type: 'timestamp'
                 },
 
+
             ]
         }))
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('bares');
+        await queryRunner.dropTable('delivery');
     }
 
 }

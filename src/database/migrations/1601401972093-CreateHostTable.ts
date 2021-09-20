@@ -34,6 +34,31 @@ export class CreateHostTable1601401972093 implements MigrationInterface {
                     isNullable: true,
                 },
                 {
+                    name: 'allowPedidosTrial',
+                    type: 'boolean',
+                    default: true
+                },
+                {
+                    name: 'premium_type',
+                    type: 'integer',
+                    isNullable: true
+                },
+                {
+                    name: 'delivery_validate',
+                    type: 'timestamp',
+                    isNullable: true
+                },
+                {
+                    name: 'delivery_type',
+                    type: 'integer',
+                    isNullable: true
+                },
+                {
+                    name: 'allowDeliveryTrial',
+                    type: 'boolean',
+                    default: true
+                },
+                {
                     name: 'created_at',
                     type: 'timestamp'
                 },

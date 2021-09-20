@@ -11,12 +11,14 @@ import CategoriasController from './app/controllers/CategoriasController';
 import SessionController from './app/controllers/SessionController';
 import PedidosController from './app/controllers/PedidosController';
 import AdicionalController from './app/controllers/AdicionalController';
+import DeliveryController from './app/controllers/DeliveryController';
 
 const routes = Router();
 
 // HOSTS 
 routes.post('/createHost', HostController.create)
 routes.post('/loginHost', HostController.login)
+routes.post('/getPedidosTrial', AuthMiddleware, HostController.getPedidosTrial)
 
 // SESSIONS
 routes.post('/session', SessionController.create)
@@ -27,6 +29,14 @@ routes.post('/listOrders', AuthMiddleware, PedidosController.listUser)
 routes.post('/listBarOrders', AuthMiddleware, PedidosController.listBar)
 
 routes.post('/pedidoValue', AuthMiddleware, PedidosController.setNewValue)
+
+// DELIVERY
+
+routes.post('/orderDelivery', AuthMiddleware, DeliveryController.create)
+routes.post('/deliveryList', AuthMiddleware, DeliveryController.listUser)
+routes.post('/deliveryBarOrders', AuthMiddleware, DeliveryController.listBar)
+
+routes.post('/deliveryValue', AuthMiddleware, DeliveryController.setNewValue)
 
 // BARES
 routes.post('/createBar', AuthMiddleware, BarsController.create)

@@ -19,8 +19,23 @@ class Host {
   @Column()
   premium_validate: Date;
 
+  @Column()
+  allowPedidosTrial: boolean;
+
   @CreateDateColumn()
   created_at: Date;
+
+  @Column()
+  premium_type: number;
+
+  @Column()
+  delivery_validate: Date;
+
+  @Column()
+  delivery_type: Number;
+
+  @Column()
+  allowDeliveryTrial: Boolean;
 
   @OneToMany(type => Bars, Bars => Bars.host)
   bars: Bars[]
