@@ -37,6 +37,8 @@ routes.post('/deliveryList', AuthMiddleware, DeliveryController.listUser)
 routes.post('/deliveryBarOrders', AuthMiddleware, DeliveryController.listBar)
 
 routes.post('/deliveryValue', AuthMiddleware, DeliveryController.setNewValue)
+routes.post('/getDeliveryTrial', AuthMiddleware, HostController.getDeliveryTrial)
+routes.post('/editDelivery', AuthMiddleware, BarsController.editDelivery)
 
 // BARES
 routes.post('/createBar', AuthMiddleware, BarsController.create)

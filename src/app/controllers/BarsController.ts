@@ -479,6 +479,91 @@ class BarsController {
 
   }
 
+  async editDelivery(req: Request, res: Response) {
+    const id = req.userId
+
+    const hostRepo = getRepository(Host)
+    const host = await hostRepo.findOne({
+      where: { id }
+    })
+
+    if (host) {
+
+      const barRepo = getRepository(Bars)
+      const barAchado = await barRepo.findOne({
+        where: { host }
+      })
+
+      if (barAchado) {
+
+        let dataAgora = new Date()
+        let timezone = dataAgora.getTimezoneOffset()
+
+        // timezone brasil = 180 
+        if (timezone != 180) {
+          let b = 180 - timezone;
+          dataAgora.setMinutes(dataAgora.getMinutes() - b);
+        }
+
+
+        if (new Date(host.delivery_validate) >= dataAgora) {
+
+
+          const { pedidos, telefone } = req.body;
+
+          if ((pedidos == true || pedidos == false) && (telefone || telefone == null)) {
+            if (pedidos == true || pedidos == false) {
+
+              if (telefone == null) {
+
+                barAchado.deliveryActive = pedidos;
+                barAchado.telefone = telefone;
+
+                await barRepo.save(barAchado)
+              } else {
+                if (telefone.length == 11) {
+                  barAchado.deliveryActive = pedidos;
+                  barAchado.telefone = telefone;
+
+                  await barRepo.save(barAchado)
+                } else {
+
+                  return res.status(503).json({
+                    error: 'Telefone length must be 11'
+                  })
+                }
+              }
+
+              return res.json({
+                changed: true
+              })
+
+            } else {
+              return res.status(503).json({
+                error: 'Missing pedidos'
+              })
+            }
+          } else {
+            return res.status(503).json({
+              error: 'Pedidos must be a boolean'
+            })
+          }
+        } else {
+          return res.status(503).json({ error: 'Missing params' })
+        }
+      } else {
+        return res.status(403).json({
+          error: 'Not premium!'
+        })
+      }
+    } else {
+      return res.status(403).json({
+        error: 'You have 0 bar'
+      })
+    }
+
+  }
+
 }
 
 export default new BarsController();
