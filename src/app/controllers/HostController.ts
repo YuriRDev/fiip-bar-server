@@ -172,6 +172,9 @@ class HostController {
                 bar.color = color;
                 bar.photo_url = photo;
 
+                host.name = title;
+
+                await hostRepo.save(host)
                 await barRepo.save(bar)
 
                 return res.json({
@@ -187,6 +190,9 @@ class HostController {
               bar.color = color;
               bar.photo_url = photo;
 
+              host.name = title;
+
+              await hostRepo.save(host)
               await barRepo.save(bar)
 
               return res.json({
