@@ -17,7 +17,7 @@ class HostController {
 
     const hostRepo = getRepository(Host);
     const hostEmail = await hostRepo.findOne({
-      where: { email: email }
+      where: { email: String(email).toLowerCase() }
     })
 
     if (!name || !email || !password) {
@@ -61,9 +61,10 @@ class HostController {
               error: 'Bar Title already in use'
             })
           } else {
+
             const host = new Host()
             host.name = name;
-            host.email = email;
+            host.email = String(email).toLowerCase();
             host.password = password;
             host.created_at = dataAgora
 
@@ -91,6 +92,8 @@ class HostController {
             return res.json({
               token: token
             })
+
+
           }
         }
 
