@@ -301,7 +301,7 @@ class DeliveryController {
                 const deliveryRepo = getRepository(Delivery)
                 const delivery = await deliveryRepo.find({
                     where: { session: session, bar: barAchado },
-                    select: ['id', 'items', 'status', 'payment', 'address', 'number', 'complemento', 'troco', 'created_at']
+                    select: ['id', 'items', 'status', 'payment', 'address', 'number', 'complemento', 'troco', 'created_at', 'taxaDeEntrega']
                 })
 
                 delivery.sort(function (a: any, b: any) {
@@ -335,7 +335,8 @@ class DeliveryController {
                         total: valorFinal,
                         address: item.address,
                         number: item.number,
-                        complemento: item.complemento
+                        complemento: item.complemento,
+                        taxaDeEntrega: item.taxaDeEntrega
                     })
                 })
                 return res.json(novoPedidos)
@@ -390,7 +391,7 @@ class DeliveryController {
                 const deliveryRepo = getRepository(Delivery)
                 const delivery = await deliveryRepo.find({
                     where: { bar: barAchado, created_at: MoreThan(dataAgora) },
-                    select: ['id', 'name', 'phone', 'items', 'status', 'payment', 'troco', 'created_at', 'address', 'cep', 'complemento', 'number']
+                    select: ['id', 'name', 'phone', 'items', 'status', 'payment', 'troco', 'created_at', 'address', 'cep', 'complemento', 'number', 'taxaDeEntrega']
                 })
 
                 let deliveryArray: any = [
@@ -429,7 +430,8 @@ class DeliveryController {
                         cep: item.cep,
                         address: item.address,
                         complemento: item.complemento,
-                        number: item.number
+                        number: item.number,
+                        taxaDeEntrega: item.taxaDeEntrega
                     }
                     if (item.status < 5) {
                         deliveryArray[item.status].items.push(itemObj)

@@ -329,7 +329,7 @@ class BarsController {
     if (host) {
       const barRepo = getRepository(Bars)
       const bares = await barRepo.find({
-        where: { host: host }, select: ['id', 'active', 'title', 'photo_url', 'telefone', 'mesas', 'color', 'description', 'address', 'deliveryActive']
+        where: { host: host }, select: ['id', 'active', 'title', 'photo_url', 'telefone', 'mesas', 'color', 'description', 'address', 'deliveryActive', 'taxaDeEntrega']
       })
 
       let dataAgora = new Date()
@@ -374,6 +374,7 @@ class BarsController {
           premiumDaysLeft: daysPremiumLeft,
           deliveryDaysLeft: daysDeliveryLeft,
           deliveryActive: item.deliveryActive,
+          taxaDeEntrega: item.taxaDeEntrega
         })
       })
 
@@ -509,21 +510,24 @@ class BarsController {
         if (new Date(host.delivery_validate) >= dataAgora) {
 
 
-          const { pedidos, telefone } = req.body;
+          const { pedidos, telefone, taxa } = req.body;
 
-          if ((pedidos == true || pedidos == false) && (telefone || telefone == null)) {
+          if ((pedidos == true || pedidos == false) && (telefone || telefone == null) && Number(taxa) >= 0) {
             if (pedidos == true || pedidos == false) {
 
               if (telefone == null) {
 
                 barAchado.deliveryActive = pedidos;
                 barAchado.telefone = telefone;
+                barAchado.taxaDeEntrega = Number(taxa)
 
                 await barRepo.save(barAchado)
               } else {
                 if (telefone.length == 11) {
                   barAchado.deliveryActive = pedidos;
                   barAchado.telefone = telefone;
+                  barAchado.taxaDeEntrega = Number(taxa)
+
 
                   await barRepo.save(barAchado)
                 } else {
